@@ -158,9 +158,7 @@ will be disabled and/or hidden in the UI.
             if (!req.session.userId) { return next(); }
 
             // Otherwise, look up the logged-in user.
-            var loggedInUser = await User.findOne({
-              id: req.session.userId
-            });
+            var loggedInUser =(req.session.userId)? true : false; 
 
             // If the logged-in user has gone missing, log a warning,
             // wipe the user id from the requesting user agent's session,

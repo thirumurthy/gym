@@ -32,27 +32,30 @@
   <body>
     <div id="page-wrap">
       <header role="banner">
-        <div id="cd-logo"><a href="#0"><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-logo_1.svg" alt="Logo"></a></div>
+        <div id="cd-logo"><a href="/"><img src="images/logo.svg"  class="img-responsive gymlogo" alt="Logo"></a></div>
          
           <!-- LOGGED-IN NAVIGATION -->
           <% if(me) { %>
-          <a class="nav-item nav-link ml-2 ml-md-0 mr-2 mr-md-0" href="/contact">Help</a>
-          <!-- Only in desktop nav -->
-          <div class="nav-item dropdown d-none d-sm-block">
-            <a class="nav-link dropdown-toggle" id="header-account-menu-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Account</a>
-            <div class="dropdown-menu account-menu" aria-labelledby="header-account-menu-link">
-              <a class="dropdown-item" href="/account">Settings</a>
-              <a class="dropdown-item" href="/logout">Sign out</a>
-            </div>
-          </div>
-          <!-- Only in mobile nav -->
-          <a class="nav-item nav-link ml-2 mr-2 d-block d-sm-none" href="/account">Account Settings</a>
-          <a class="nav-item nav-link ml-2 mr-2 d-block d-sm-none" href="/logout">Sign out</a>
+            <nav class="main-nav">
+                <ul>
+                  <!-- inser more links here -->
+                  <li><a class="cd-signin" href="#0">Users</a></li>
+                  <li><a class="" href="#">Payments</a></li>
+                  <li><a class="cd" href="#">Packages</a></li>
+                  <li><a class="cd" href="#">Branchs</a></li>
+                  <li><a class="cd" href="#">Report</a></li>
+                  <li><a class="cd" href="#">Logout</a></li>
+                 <!-- <li><a class="cd-signup" href="#0">Sign up</a></li> -->
+                </ul>
+              </nav>
           <% } else { %>
             <nav class="main-nav">
               <ul>
                 <!-- inser more links here -->
-                <li><a class="cd-signin" href="#0">Sign in</a></li>
+                <li><a class="cd-signin" id="gymlogin" href="#0">Sign in</a></li>
+                <li><a class="" href="#">Gallery</a></li>
+                <li><a class="cd" href="#">Events</a></li>
+                <li><a class="cd" href="#">Contact Us</a></li>
                <!-- <li><a class="cd-signup" href="#0">Sign up</a></li> -->
               </ul>
             </nav>
@@ -72,13 +75,13 @@
             <form class="cd-form">
               <p class="fieldset">
                 <label class="image-replace cd-email" for="signin-email">E-mail</label>
-                <input class="full-width has-padding has-border" id="signin-email" type="email" placeholder="E-mail">
+                <input id="username" class="full-width has-padding has-border" id="signin-email" type="text" placeholder="User Name">
                 <span class="cd-error-message">Error message here!</span>
               </p>
     
               <p class="fieldset">
                 <label class="image-replace cd-password" for="signin-password">Password</label>
-                <input class="full-width has-padding has-border" id="signin-password" type="text"  placeholder="Password">
+                <input id="pwd" class="full-width has-padding has-border" id="signin-password" type="text"  placeholder="Password">
                 <a href="#0" class="hide-password">Hide</a>
                 <span class="cd-error-message">Error message here!</span>
               </p>
@@ -162,6 +165,7 @@
     <script src="/js/components/ajax-button.component.js"></script>
     <script src="/js/components/ajax-form.component.js"></script>
     <script src="/js/components/modal.component.js"></script>
+    <script src="/js/components/vuetable-2-full.js"></script>
     <script src="/js/utilities/open-stripe-checkout.js"></script>
     <script src="/js/index.js"></script>
     <script src="/js/pages/498.page.js"></script>
@@ -179,7 +183,6 @@
     <script src="/js/pages/homepage.page.js"></script>
     <script src="/js/pages/legal/privacy.page.js"></script>
     <script src="/js/pages/legal/terms.page.js"></script>
-    <script src="/js/index.js"></script>
     <!--SCRIPTS END-->
   </body>
 </html>

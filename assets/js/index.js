@@ -8,10 +8,10 @@ jQuery(document).ready(function($){
 		$tab_signup = $form_modal_tab.children('li').eq(1).children('a'),
 		$forgot_password_link = $form_login.find('.cd-form-bottom-message a'),
 		$back_to_login_link = $form_forgot_password.find('.cd-form-bottom-message a'),
-		$main_nav = $('.main-nav');
-
+		$main_nav = $('.main-nav'),
+		$gymlogin = $('#gymlogin');
 	//open modal
-	$main_nav.on('click', function(event){
+	$gymlogin.on('click', function(event){
 
 		if( $(event.target).is($main_nav) ) {
 			// on mobile open the submenu
@@ -94,7 +94,22 @@ jQuery(document).ready(function($){
 	//REMOVE THIS - it's just to show error messages 
 	$form_login.find('input[type="submit"]').on('click', function(event){
 		event.preventDefault();
-		$form_login.find('input[type="email"]').toggleClass('has-error').next('span').toggleClass('is-visible');
+		if(!$form_login.find('input[id="username"]').val())
+		{
+			$form_login.find('input[id="username"]').toggleClass('has-error').next('span').toggleClass('is-visible');
+		}
+		else
+		{
+			var postdata = { username : $form_login.find('input[id="username"]').val(), password : $form_login.find('input[id="pwd"]').val() };
+			$.post( "/api/v1/user/login",postdata, function( data ) {
+				if(data && data ==1)
+				{
+					window.location.href = "/welcome";
+				}
+				console.log(data);
+			  });
+		}
+		
 	});
 	$form_signup.find('input[type="submit"]').on('click', function(event){
 		event.preventDefault();

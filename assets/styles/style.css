@@ -491,3 +491,10 @@ xsigin/signup popup
 #cd-login.is-selected, #cd-signup.is-selected, #cd-reset-password.is-selected {
   display: block;
 }
+
+.gymlogo {
+   
+  height: 27%;
+  width: 20%;
+}
+
