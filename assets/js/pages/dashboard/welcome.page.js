@@ -26,14 +26,19 @@ parasails.registerPage('welcome', {
          sortField: 'id'
        }, 
        {
-         name: 'EmailId',
-         title: 'EmailId',
-         sortField: 'EmailId'
+         name: 'Name',
+         title: 'Name',
+         sortField: 'Name'
        },
-       'JoinDate','JoinDate',
+       {
+         name:'ExpireDays',
+         title: "Expire In",
+         sortField: 'ExpireDays'
+       }
+       ,
        {
          name: 'JoinDate',
-         title: 'JoinDate',
+         title: 'Joined Date',
          sortField: 'JoinDate'
        },
        '__slot:actions'

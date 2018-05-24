@@ -26,7 +26,7 @@ module.exports = {
     if (this.req.me) {
       throw {redirect: '/'};
     }
-
+    this.res.locals.layout = 'layouts/login';
     return exits.success();
 
   }

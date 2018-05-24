@@ -46,7 +46,7 @@ module.exports = {
        
       var rawResult = await sails.sendNativeQuery(EXPENSE_SAVE_SQL, [ inputs.page, inputs.per_page ]);
 
-      result.data =rawResult.rows[0][0];
+      result.data =rawResult.rows[0];
 
   }
   catch(err)

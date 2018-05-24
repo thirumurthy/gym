@@ -28,6 +28,10 @@ module.exports = {
     if (this.req.me) {
       throw {redirect:'/welcome'};
     }
+    else
+    {
+      throw {redirect:'/login'};
+    }
 
     return exits.success();
 
