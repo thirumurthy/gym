@@ -18,7 +18,8 @@ parasails.registerPage('welcome', {
     'vuetable-pagination': Vuetable.VuetablePagination
    },
    data: {
-    dashboardModalVisible: false,
+     
+    userAddModalVisible : false,
      fields: [
        { 
          name: 'id', 
@@ -80,6 +81,8 @@ parasails.registerPage('welcome', {
   },
   mounted: async function() {
     //…
+   
+
   },
 
   //  ╦╔╗╔╔╦╗╔═╗╦═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
@@ -107,12 +110,24 @@ parasails.registerPage('welcome', {
       console.log('loaded! .. hide your spinner here')
     },
 
-    clickOpenDashboardModalButton: async function() {
-      this.dashboardModalVisible = true;
+    
+    openUserAddModel: async function() {
+      this.userAddModalVisible = true;
+      $(function() {
+        $('#joindate').datepicker({
+                  // date format
+          format: 'dd/MM/yyyy',
+
+          // placeholder text
+          placeholder: 'Please select Join Date',
+        } );
+    });
+
     },
 
-    closeDashboardModal: async function() {
-      this.dashboardModalVisible = false;
+    closeUserAddModel: async function() {
+      this.userAddModalVisible = false;
+       
     },
 
   }
