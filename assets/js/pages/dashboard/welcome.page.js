@@ -18,7 +18,8 @@ parasails.registerPage('welcome', {
     'vuetable-pagination': Vuetable.VuetablePagination
    },
    data: {
-     
+    curUser : {}, 
+    lstbranch : [{bid:"1",Name:"Malumichambatti"}],
     userAddModalVisible : false,
      fields: [
        { 
@@ -98,7 +99,19 @@ parasails.registerPage('welcome', {
       this.$refs.vuetable.changePage(page)
     },
     editRow(rowData){
-      alert("You clicked edit on"+ JSON.stringify(rowData))
+      this.userAddModalVisible = true;
+      this.curUser = rowData;
+      var curdate = (this.curUser.JoinDate || '');
+      setTimeout(() => {
+        $('#joindate').datepicker({
+          format: 'dd/MM/yyyy',
+          placeholder: 'Please select Join Date',
+          defaultValue: curdate,
+          } );
+      }, 600);
+     
+      
+      //alert("You clicked edit on"+ JSON.stringify(rowData))
     },
     deleteRow(rowData){
       alert("You clicked delete on"+ JSON.stringify(rowData))
@@ -120,6 +133,8 @@ parasails.registerPage('welcome', {
 
           // placeholder text
           placeholder: 'Please select Join Date',
+           // default date
+          defaultValue: '',
         } );
     });
 
