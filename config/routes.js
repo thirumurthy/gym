@@ -52,6 +52,7 @@ module.exports.routes = {
 // manual apis
 'POST /api/v1/user/login': { action: 'user/login' },
 'GET /api/v1/user/listusers': { action: 'user/listusers' },
+'POST /api/v1/user/saveuser': { action: 'user/saveuser' },
 
 
 

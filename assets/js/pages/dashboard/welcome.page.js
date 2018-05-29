@@ -2,10 +2,17 @@
 ///////// reference : https://codepen.io/ratiw/pen/GmJayw
 ///////// reference : https://github.com/ratiw/vuetable-2
 //////////////////////////////////////
-
+/**
+ * http://blog.dniccumdesign.com/how-to-add-sass-scss-support-to-a-sailsjs-application/
+ * https://artemsky.github.io/vue-snotify/
+ * https://artemsky.github.io/vue-snotify/documentation/essentials/styling.html
+ * https://github.com/artemsky/vue-snotify/tree/master/src/styles
+ * 
+ */
 
 
 Vue.use(Vuetable);
+ 
 
 parasails.registerPage('welcome', {
   //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
@@ -18,7 +25,16 @@ parasails.registerPage('welcome', {
     'vuetable-pagination': Vuetable.VuetablePagination
    },
    data: {
+     // Form data
+    formData: { /* … */ },
+ 
+
+    // Syncing / loading state
+    syncing: false,
+
     curUser : {}, 
+    cloudError : {},
+    formErrors : {},
     lstbranch : [{bid:"1",Name:"Malumichambatti"}],
     userAddModalVisible : false,
      fields: [
@@ -89,6 +105,7 @@ parasails.registerPage('welcome', {
   //  ╦╔╗╔╔╦╗╔═╗╦═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
   //  ║║║║ ║ ║╣ ╠╦╝╠═╣║   ║ ║║ ║║║║╚═╗
   //  ╩╝╚╝ ╩ ╚═╝╩╚═╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝╚═╝
+  
   methods: {
 
 
@@ -101,6 +118,13 @@ parasails.registerPage('welcome', {
     editRow(rowData){
       this.userAddModalVisible = true;
       this.curUser = rowData;
+      this.$snotify.success('Example body content', 'Example title', {
+        timeout: 2000,
+        showProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true
+      });
+
       var curdate = (this.curUser.JoinDate || '');
       setTimeout(() => {
         $('#joindate').datepicker({
@@ -143,6 +167,25 @@ parasails.registerPage('welcome', {
     closeUserAddModel: async function() {
       this.userAddModalVisible = false;
        
+    },
+    handleParsingUserSaveForm:  function(){
+       
+        var _self= this;    
+      Object.keys(this.curUser).forEach(function(key) {
+        _self. curUser[key] = (_self. curUser[key] ) ?_self. curUser[key] : undefined ; 
+      });
+      var argins= this.curUser;
+
+      if (Object.keys(this.formErrors).length > 0) {
+        return;
+      }
+
+      return argins;
+    },
+    submittedUserSaveForm : async function(){
+
+      
+
     },
 
   }

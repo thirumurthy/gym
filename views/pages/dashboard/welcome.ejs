@@ -1,5 +1,12 @@
 <div id="welcome" class="container h-100">
    
+  <template>
+    <div>
+      <h1>My app!</h1>
+      <vue-snotify></vue-snotify>
+    </div>
+  </template>
+
       <div id="table-wrapper" class="ui container">
            <p></p>
           <button  class="btn btn-primary float-right" @click="openUserAddModel()"> Add New User </button> <br>
@@ -42,10 +49,11 @@
           </button>
         </div>
 <!-- model body -->
-<form>
+<ajax-form action="saveuser"  :syncing.sync="syncing"  :cloud-error.sync="cloudError" :handle-parsing="handleParsingUserSaveForm" @submitted="submittedUserSaveForm">
+
     <div class="form-group">
       <label for="username">Name</label>
-      <input type="text" class="form-control" id="username"  placeholder="Enter Name" v-model.trim="curUser.Name" >
+      <input type="text" class="form-control" id="username"  placeholder="Enter Name" v-model.trim="curUser.Name" focus-first>
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     <div class="form-group">
@@ -71,9 +79,11 @@
         <label for="weight">Weight</label>
         <input type="text" class="form-control" id="weight" placeholder="Enter Weight" v-model.trim="curUser.weight">
     </div>
-
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </form>
+    <ajax-button type="submit"  :syncing="syncing" class="btn-dark btn-lg btn-block">Submit</ajax-button>
+     
+   
+</ajax-form>
+ 
  
 
   </modal>  
