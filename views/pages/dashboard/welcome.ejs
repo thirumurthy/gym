@@ -1,13 +1,12 @@
-<div id="welcome" class="container h-100">
+<div id="welcome" class="container-fluid">
    
   <template>
     <div>
-      <h1>My app!</h1>
       <vue-snotify></vue-snotify>
     </div>
   </template>
-
-      <div id="table-wrapper" class="ui container">
+ 
+      <div id="table-wrapper" class="ui ">
            <p></p>
           <button  class="btn btn-primary float-right" @click="openUserAddModel()"> Add New User </button> <br>
           <h2>User List</h2>
@@ -17,7 +16,7 @@
            :sort-order="sortOrder"
            :css="css.table"
            pagination-path=""
-           :per-page="3"
+           :per-page="50"
            @vuetable:pagination-data="onPaginationData"
            @vuetable:loading="onLoading"        
            @vuetable:loaded="onLoaded"
@@ -25,9 +24,13 @@
            <template slot="actions" scope="props">
              <div class="table-button-container">
                  <button class="btn btn-warning btn-sm" @click="editRow(props.rowData)">
-                   <span class="glyphicon glyphicon-pencil"></span> Edit</button>&nbsp;&nbsp;
+                   <span class="fas fa-edit"></span> Edit</button>&nbsp;&nbsp;
                  <button class="btn btn-danger btn-sm" @click="deleteRow(props.rowData)">
                    <span class="glyphicon glyphicon-trash"></span> Delete</button>&nbsp;&nbsp;
+                   <button class="btn btn-success btn-sm" @click="PayNow(props.rowData)">
+                    <span class="glyphicon glyphicon-shopping-cart"></span> Pay</button>&nbsp;&nbsp;
+ 
+
              </div>
              </template>
            </vuetable>
@@ -36,8 +39,8 @@
              @vuetable-pagination:change-page="onChangePage"
            ></vuetable-pagination>
          </div>
-           
-  
+    
+    
 
 
 <!-- model popup  -->

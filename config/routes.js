@@ -34,6 +34,11 @@ module.exports.routes = {
   'GET /account/password':   { action: 'account/view-edit-password' },
   'GET /account/profile':    { action: 'account/view-edit-profile' },
 
+  // manual page
+  'GET /payments': { action: 'payment/view-payments' },
+  'GET /package': { action: 'package/view-getpackage' },
+  'GET /report': { action: 'report/view-getreport' },
+  'GET /branch': { action: 'branch/view-getbranch' },
 
   //  ╔═╗╔═╗╦  ╔═╗╔╗╔╔╦╗╔═╗╔═╗╦╔╗╔╔╦╗╔═╗
   //  ╠═╣╠═╝║  ║╣ ║║║ ║║╠═╝║ ║║║║║ ║ ╚═╗

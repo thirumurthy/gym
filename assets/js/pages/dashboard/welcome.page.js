@@ -115,15 +115,15 @@ parasails.registerPage('welcome', {
     onChangePage (page) {
       this.$refs.vuetable.changePage(page)
     },
+    PayNow(rowData){
+
+      window.location.href = "/payments?userid="+rowData.UserId ;
+      
+    },
     editRow(rowData){
       this.userAddModalVisible = true;
       this.curUser = rowData;
-      this.$snotify.success('Example body content', 'Example title', {
-        timeout: 2000,
-        showProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true
-      });
+      
 
       var curdate = (this.curUser.JoinDate || '');
       setTimeout(() => {
@@ -138,7 +138,17 @@ parasails.registerPage('welcome', {
       //alert("You clicked edit on"+ JSON.stringify(rowData))
     },
     deleteRow(rowData){
-      alert("You clicked delete on"+ JSON.stringify(rowData))
+      this.$snotify.confirm('Are you sure want to delete this user?', 'Delete User', {
+        timeout: 0, 
+        closeOnClick: false,
+        pauseOnHover: true,
+        buttons: [
+          {text: 'Yes', action: () => console.log('Clicked: Yes'), bold: false},
+           
+          {text: 'No', action: (toast) => {console.log('Clicked: No'); this.$snotify.remove(toast.id); }, bold: true},
+        ]
+      });
+      //alert("You clicked delete on"+ JSON.stringify(rowData))
     },
     onLoading() {
       console.log('loading... show your spinner here')
@@ -149,6 +159,7 @@ parasails.registerPage('welcome', {
 
     
     openUserAddModel: async function() {
+      this.curUser. UserId = 0 ;
       this.userAddModalVisible = true;
       $(function() {
         $('#joindate').datepicker({
@@ -182,7 +193,27 @@ parasails.registerPage('welcome', {
 
       return argins;
     },
-    submittedUserSaveForm : async function(){
+    submittedUserSaveForm : async function(response){
+
+      if(response.scode==200)
+      {
+        this.userAddModalVisible = false;
+        this.$snotify.success('The user Information saved successfully..!', 'Save User', {
+          timeout: 2000,
+          showProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true
+        });
+      }
+      else{
+        this.$snotify.success('Failed to save..!', 'Save User', {
+          timeout: 2000,
+          showProgressBar: false,
+          closeOnClick: false,
+          pauseOnHover: true
+        });
+
+      }
 
       
 

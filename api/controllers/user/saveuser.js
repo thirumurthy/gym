@@ -11,7 +11,7 @@ module.exports = {
 
     UserId : {
       type : "number",
-      required : true
+      required : false
     },
     Name : {
       type :"string",

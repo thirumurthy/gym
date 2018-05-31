@@ -17,6 +17,8 @@ module.exports.policies = {
   'account/logout': true,
   'view-homepage-or-redirect': true,
   'deliver-contact-form-message': true,
-  'user/*': true
-
+  'user/*': true,
+  'payment/*': true,
+  'package/*': true,
+  'report/*':true
 };
