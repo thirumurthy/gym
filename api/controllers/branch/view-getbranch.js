@@ -25,6 +25,7 @@ module.exports = {
 
 
   fn: async function (inputs, exits) {
+    
 
     this.res.locals.layout = 'layouts/layout';
     return exits.success();
