@@ -1,27 +1,18 @@
 <div id="welcome" class="container-fluid">
-   
-  <template>
+
+    <template>
     <div>
       <vue-snotify></vue-snotify>
     </div>
   </template>
- 
-      <div id="table-wrapper" class="ui ">
-           <p></p>
-          <button  class="btn btn-primary float-right" @click="openUserAddModel()"> Add New User </button> <br>
-          <h2>User List</h2>
-         <vuetable ref="vuetable"
-           api-url="/api/v1/user/listusers"
-           :fields="fields"
-           :sort-order="sortOrder"
-           :css="css.table"
-           pagination-path=""
-           :per-page="50"
-           @vuetable:pagination-data="onPaginationData"
-           @vuetable:loading="onLoading"        
-           @vuetable:loaded="onLoaded"
-         >
-           <template slot="actions" scope="props">
+
+
+    <div id="table-wrapper" class="ui ">
+        <p></p>
+        <button class="btn btn-primary float-right" @click="openUserAddModel()"> Add New User </button> <br>
+        <h2>User List</h2>
+        <vuetable ref="vuetable" api-url="/api/v1/user/listusers" :fields="fields" :sort-order="sortOrder" :css="css.table" pagination-path="" :per-page="50" @vuetable:pagination-data="onPaginationData" @vuetable:loading="onLoading" @vuetable:loaded="onLoaded">
+            <template slot="actions" scope="props">
              <div class="table-button-container">
                  <button class="btn btn-warning btn-sm" @click="editRow(props.rowData)">
                    <span class="fas fa-edit"></span> Edit</button>&nbsp;&nbsp;
@@ -33,66 +24,63 @@
 
              </div>
              </template>
-           </vuetable>
-           <vuetable-pagination ref="pagination"
-             :css="css.pagination"
-             @vuetable-pagination:change-page="onChangePage"
-           ></vuetable-pagination>
-         </div>
-    
-    
+        </vuetable>
+        <vuetable-pagination ref="pagination" :css="css.pagination" @vuetable-pagination:change-page="onChangePage"></vuetable-pagination>
+    </div>
 
 
-<!-- model popup  -->
-  <modal v-if="userAddModalVisible" @close="closeUserAddModel()" v-cloak>
-      <div class="modal-header">
-          <h5 class="modal-title">Add New User</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+
+    <!-- model popup  -->
+    <modal v-if="userAddModalVisible" @close="closeUserAddModel()" v-cloak>
+        <div class="modal-header">
+            <h5 class="modal-title">Add New User</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span>&times;</span>
           </button>
         </div>
-<!-- model body -->
-<ajax-form action="saveuser"  :syncing.sync="syncing"  :cloud-error.sync="cloudError" :handle-parsing="handleParsingUserSaveForm" @submitted="submittedUserSaveForm">
+        <!-- model body -->
+        <ajax-form action="saveuser" :syncing.sync="syncing" :cloud-error.sync="cloudError" :handle-parsing="handleParsingUserSaveForm" @submitted="submittedUserSaveForm">
 
-    <div class="form-group">
-      <label for="username">Name</label>
-      <input type="text" class="form-control" id="username"  placeholder="Enter Name" v-model.trim="curUser.Name" focus-first>
-      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-    </div>
-    <div class="form-group">
-      <label for="age">Age</label>
-      <input type="text" class="form-control" id="age" placeholder="Enter Age" v-model.trim="curUser.Age">
-    </div>
-    <div class="form-group">
-        <label for="usrBranch">Branch</label>
-        <select class="form-control" id="usrBranch">
+            <div class="form-group">
+                <label for="username">Name</label>
+                <input type="text" class="form-control" id="username" placeholder="Enter Name" v-model.trim="curUser.Name" focus-first>
+                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+                <label for="age">Age</label>
+                <input type="text" class="form-control" id="age" placeholder="Enter Age" v-model.trim="curUser.Age">
+            </div>
+            <div class="form-group">
+                <label for="usrBranch">Branch</label>
+                <select class="form-control" id="usrBranch">
           <option  v-for="slgbr of lstbranch" :value="slgbr.bid">{{slgbr.Name}}</option>
           
         </select>
-      </div>
-    <div class="form-group">
-        <label for="joindate">Join Date</label>
-        <input type="text" class="form-control" id="joindate" placeholder="Enter Join Date"  >
-    </div>
-    <div class="form-group">
-        <label for="height">Height</label>
-        <input type="text" class="form-control" id="height" placeholder="Enter Height" v-model.trim="curUser.height">
-    </div>
-    <div class="form-group">
-        <label for="weight">Weight</label>
-        <input type="text" class="form-control" id="weight" placeholder="Enter Weight" v-model.trim="curUser.weight">
-    </div>
-    <ajax-button type="submit"  :syncing="syncing" class="btn-dark btn-lg btn-block">Submit</ajax-button>
-     
-   
-</ajax-form>
- 
- 
+            </div>
+            <div class="form-group">
+                <label for="joindate">Join Date</label>
+                <input type="text" class="form-control" id="joindate" placeholder="Enter Join Date">
+            </div>
+            <div class="form-group">
+                <label for="height">Height</label>
+                <input type="text" class="form-control" id="height" placeholder="Enter Height" v-model.trim="curUser.height">
+            </div>
+            <div class="form-group">
+                <label for="weight">Weight</label>
+                <input type="text" class="form-control" id="weight" placeholder="Enter Weight" v-model.trim="curUser.weight">
+            </div>
+            <ajax-button type="submit" :syncing="syncing" class="btn-dark btn-lg btn-block">Submit</ajax-button>
 
-  </modal>  
-  
 
-<!-- model popup  -->
+        </ajax-form>
+
+
+
+    </modal>
+
+
+    <!-- model popup  -->
 </div>
 
 

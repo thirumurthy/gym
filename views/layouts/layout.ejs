@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Muscle zone gym </title>
 
     <% /* Viewport tag for sensible mobile support */ %>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    <% /* Script tags should normally be included further down the page- but scripts
+        <% /* Script tags should normally be included further down the page- but scripts
     that load fonts are a special exception to the rule.  (We include them up here
     above the «body» to prevent the page flickering when fonts load.)  */ %>
-    <!-- Font Awesome -->
-    <script src="https://use.fontawesome.com/96cbd61ead.js"></script>
+            <!-- Font Awesome -->
+            <script src="https://use.fontawesome.com/96cbd61ead.js"></script>
 
-    <% /*
+            <% /*
         Stylesheets
         ========================
 
@@ -21,126 +22,133 @@
         (https://sailsjs.com/docs/concepts/assets/task-automation)
     */ %>
 
-    <% /* Auto-injected «link» tags: */ %>
-    <!--STYLES-->
-    <link rel="stylesheet" href="/dependencies/bootstrap-4/bootstrap-4.css">
-    <link rel="stylesheet" href="/dependencies/jquery-ui.min.css">
-    <link rel="stylesheet" href="/dependencies/jquery.datepicker.min.css">
-    <link rel="stylesheet" href="/dependencies/material.css">
-    <link rel="stylesheet" href="/styles/importer.css">
-    <link rel="stylesheet" href="/styles/pages/entrance/login.css">
-    <link rel="stylesheet" href="/styles/style.css">
-    <!--STYLES END-->
-  </head>
+                <% /* Auto-injected «link» tags: */ %>
+                    <!--STYLES-->
+                    <link rel="stylesheet" href="/dependencies/bootstrap-4/bootstrap-4.css">
+                    <link rel="stylesheet" href="/dependencies/jquery-ui.min.css">
+                    <link rel="stylesheet" href="/dependencies/jquery.datepicker.min.css">
+                    <link rel="stylesheet" href="/dependencies/material.css">
+                    <link rel="stylesheet" href="/styles/importer.css">
+                    <link rel="stylesheet" href="/styles/pages/entrance/login.css">
+                    <link rel="stylesheet" href="/styles/style.css">
+                    <!--STYLES END-->
+</head>
 
-  <body>
+<body>
     <div id="page-wrap">
-      <header role="banner">
-        <div id="cd-logo"><a href="/"><img src="images/logo.svg"  class="img-responsive gymlogo" alt="Logo"></a></div>
-         
-          <!-- LOGGED-IN NAVIGATION -->
-          <% if(me) { %>
-            <nav class="main-nav">
-                <ul>
-                  <!-- inser more links here -->
-                  <li><a class="cd-signin" href="#0">Users</a></li>
-                  <li><a class="" href="/payments">Payments</a></li>
-                  <li><a class="cd" href="/package">Packages</a></li>
-                  <li><a class="cd" href="/branch">Branchs</a></li>
-                  <li><a class="cd" href="/report">Report</a></li>
-                  <li><a class="cd" href="/logout">Logout</a></li>
-                 <!-- <li><a class="cd-signup" href="#0">Sign up</a></li> -->
+        <header role="banner">
+
+            <!-- LOGGED-IN NAVIGATION -->
+            <% if(me) { %>
+                <nav class="main-nav">
+                    <ul>
+                        <!-- inser more links here -->
+                        <li><a class="cd-signin" href="#0">Users</a></li>
+                        <li><a class="" href="/payments">Payments</a></li>
+                        <li><a class="cd" href="/package">Packages</a></li>
+                        <li><a class="cd" href="/branch">Branchs</a></li>
+                        <li><a class="cd" href="/report">Report</a></li>
+                        <li><a class="cd" href="/logout">Logout</a></li>
+                        <!-- <li><a class="cd-signup" href="#0">Sign up</a></li> -->
+                    </ul>
+                </nav>
+                <% } else { %>
+                    <nav class="main-nav">
+                        <ul>
+                            <!-- inser more links here -->
+                            <li><a class="cd-signin" id="gymlogin" href="#0">Sign in</a></li>
+                            <li><a class="" href="#">Gallery</a></li>
+                            <li><a class="cd" href="#">Events</a></li>
+                            <li><a class="cd" href="#">Contact Us</a></li>
+                            <!-- <li><a class="cd-signup" href="#0">Sign up</a></li> -->
+                        </ul>
+                    </nav>
+                    <% } %>
+                        <!--  <div id="cd-logo">
+                            <a href="/"><img src="images/logo.svg" class="img-responsive gymlogo" alt="Logo"></a>
+                        </div> -->
+
+        </header>
+
+
+        <!-- Loading spinner -->
+
+        <!-- Loading spinner -->
+
+
+
+        <div class="cd-user-modal">
+            <!-- this is the entire modal form, including the background -->
+            <div class="cd-user-modal-container">
+                <!-- this is the container wrapper -->
+                <ul class="cd-switcher">
+                    <li><a href="#0">Sign in</a></li>
+                    <!-- <li><a href="#0">New account</a></li> -->
                 </ul>
-              </nav>
-          <% } else { %>
-            <nav class="main-nav">
-              <ul>
-                <!-- inser more links here -->
-                <li><a class="cd-signin" id="gymlogin" href="#0">Sign in</a></li>
-                <li><a class="" href="#">Gallery</a></li>
-                <li><a class="cd" href="#">Events</a></li>
-                <li><a class="cd" href="#">Contact Us</a></li>
-               <!-- <li><a class="cd-signup" href="#0">Sign up</a></li> -->
-              </ul>
-            </nav>
-          <% } %>
-        
-      </header>
 
-<!-- Loading spinner -->
+                <div id="cd-login">
+                    <!-- log in form -->
+                    <form class="cd-form">
+                        <p class="fieldset">
+                            <label class="image-replace cd-email" for="signin-email">E-mail</label>
+                            <input id="username" class="full-width has-padding has-border" id="signin-email" type="text" placeholder="User Name">
+                            <span class="cd-error-message">Error message here!</span>
+                        </p>
 
-<!-- Loading spinner -->
+                        <p class="fieldset">
+                            <label class="image-replace cd-password" for="signin-password">Password</label>
+                            <input id="pwd" class="full-width has-padding has-border" id="signin-password" type="text" placeholder="Password">
+                            <a href="#0" class="hide-password">Hide</a>
+                            <span class="cd-error-message">Error message here!</span>
+                        </p>
 
+                        <p class="fieldset">
+                            <input type="checkbox" id="remember-me" checked>
+                            <label for="remember-me">Remember me</label>
+                        </p>
 
+                        <p class="fieldset">
+                            <input class="full-width" type="submit" value="Login">
+                        </p>
+                    </form>
 
-      <div class="cd-user-modal"> <!-- this is the entire modal form, including the background -->
-        <div class="cd-user-modal-container"> <!-- this is the container wrapper -->
-          <ul class="cd-switcher">
-            <li><a href="#0">Sign in</a></li>
-           <!-- <li><a href="#0">New account</a></li> -->
-          </ul>
-    
-          <div id="cd-login"> <!-- log in form -->
-            <form class="cd-form">
-              <p class="fieldset">
-                <label class="image-replace cd-email" for="signin-email">E-mail</label>
-                <input id="username" class="full-width has-padding has-border" id="signin-email" type="text" placeholder="User Name">
-                <span class="cd-error-message">Error message here!</span>
-              </p>
-    
-              <p class="fieldset">
-                <label class="image-replace cd-password" for="signin-password">Password</label>
-                <input id="pwd" class="full-width has-padding has-border" id="signin-password" type="text"  placeholder="Password">
-                <a href="#0" class="hide-password">Hide</a>
-                <span class="cd-error-message">Error message here!</span>
-              </p>
-    
-              <p class="fieldset">
-                <input type="checkbox" id="remember-me" checked>
-                <label for="remember-me">Remember me</label>
-              </p>
-    
-              <p class="fieldset">
-                <input class="full-width" type="submit" value="Login">
-              </p>
-            </form>
-             
-            <!-- <a href="#0" class="cd-close-form">Close</a> -->
-          </div> <!-- cd-login -->
+                    <!-- <a href="#0" class="cd-close-form">Close</a> -->
+                </div>
+                <!-- cd-login -->
 
-          </div>
+            </div>
         </div>
 
 
 
-      <!-- Alert if email has not been confirmed -->
-      <% if(me&&me.emailChangeCandidate) { %>
-      <div class="container-fluid">
-        <div class="alert alert-secondary mt-2" role="alert">
-        Your updated email address needs verification. Until you click the link sent to <strong><%= me.emailChangeCandidate %></strong>, you'll still need to sign in as <strong><%= me.emailAddress %></strong>.
-        </div>
-      </div>
-      <% } else if(me&&me.emailStatus === 'unconfirmed') { %>
-      <div class="container-fluid">
-        <div class="alert alert-secondary mt-2" role="alert">
-        Your email address still needs verification. Your account access may be limited until you click the link sent to <strong><%= me.emailChangeCandidate ? me.emailChangeCandidate : me.emailAddress%></strong>.
-        </div>
-      </div>
-      <% } %>
+        <!-- Alert if email has not been confirmed -->
+        <% if(me&&me.emailChangeCandidate) { %>
+            <div class="container-fluid">
+                <div class="alert alert-secondary mt-2" role="alert">
+                    Your updated email address needs verification. Until you click the link sent to <strong><%= me.emailChangeCandidate %></strong>, you'll still need to sign in as <strong><%= me.emailAddress %></strong>.
+                </div>
+            </div>
+            <% } else if(me&&me.emailStatus === 'unconfirmed') { %>
+                <div class="container-fluid">
+                    <div class="alert alert-secondary mt-2" role="alert">
+                        Your email address still needs verification. Your account access may be limited until you click the link sent to <strong><%= me.emailChangeCandidate ? me.emailChangeCandidate : me.emailAddress%></strong>.
+                    </div>
+                </div>
+                <% } %>
 
-      <%- body %>
+                    <%- body %>
 
-      <footer id="page-footer" class="navbar navbar-light justify-content-between flex-row-reverse">
-        <div class="nav">
-          <small class="nav-item"><a class="nav-link text-info" href="/contact">Contact<span class="d-none d-sm-inline"> us</span></a></small>
-          <small class="nav-item"><a class="nav-link text-info" href="/legal/terms">Terms<span class="d-none d-sm-inline"> of Use</span></a></small>
-          <small class="nav-item"><a class="nav-link text-info" href="/legal/privacy">Privacy<span class="d-none d-sm-inline"> policy</span></a></small>
-          <% if(me) { %>
-          <small class="nav-item"><a class="nav-link text-info" href="/logout">Sign out</a></small>
-          <% } %>
-        </div>
-        <small class="copy">Copyright &copy; 2018 NEW_APP_COMPANY. <br class="xs-only"/>All rights reserved.</small>
-      </footer>
+                        <footer id="page-footer" class="navbar navbar-light justify-content-between flex-row-reverse">
+                            <div class="nav">
+                                <small class="nav-item"><a class="nav-link text-info" href="/contact">Contact<span class="d-none d-sm-inline"> us</span></a></small>
+                                <small class="nav-item"><a class="nav-link text-info" href="/legal/terms">Terms<span class="d-none d-sm-inline"> of Use</span></a></small>
+                                <small class="nav-item"><a class="nav-link text-info" href="/legal/privacy">Privacy<span class="d-none d-sm-inline"> policy</span></a></small>
+                                <% if(me) { %>
+                                    <small class="nav-item"><a class="nav-link text-info" href="/logout">Sign out</a></small>
+                                    <% } %>
+                            </div>
+                            <small class="copy">Copyright &copy; 2018 NEW_APP_COMPANY. <br class="xs-only"/>All rights reserved.</small>
+                        </footer>
     </div>
 
 
@@ -153,53 +161,56 @@
       (https://sailsjs.com/docs/concepts/assets/task-automation)
     */ %>
 
-    <% /* Load Stripe Checkout */ %>
-    <script src="https://checkout.stripe.com/checkout.js"></script>
+        <% /* Load Stripe Checkout */ %>
+            <script src="https://checkout.stripe.com/checkout.js"></script>
 
-    <% /* Delete the global `self` to help avoid client-side bugs.
+            <% /* Delete the global `self` to help avoid client-side bugs.
     (see https://developer.mozilla.org/en-US/docs/Web/API/Window/self) */ %>
-    <script>delete window.self;</script>
+                <script>
+                    delete window.self;
+                </script>
 
-    <% /* Auto-injected «script» tags: */ %>
-    <!--SCRIPTS-->
-    <script src="/dependencies/sails.io.js"></script>
-    <script src="/dependencies/lodash.js"></script>
-    <script src="/dependencies/jquery.min.js"></script>
-    <script src="/dependencies/bowser.js"></script>
-    <script src="/dependencies/vue.js"></script>
-    <script src="/dependencies/bootstrap-4/bootstrap-4.bundle.js"></script>
-    <script src="/dependencies/cloud.js"></script>
-    <script src="/dependencies/jquery.datepicker.min.js"></script>
-    <script src="/dependencies/jquery.datepicker.zen-US.js"></script>
-    <script src="/dependencies/parasails.js"></script>
-    <script src="/dependencies/vue-snotify.js"></script>
-    <script src="/js/cloud.setup.js"></script>
-    <script src="/js/components/ajax-button.component.js"></script>
-    <script src="/js/components/ajax-form.component.js"></script>
-    <script src="/js/components/modal.component.js"></script>
-    <script src="/js/components/vuetable-2-full.js"></script>
-    <script src="/js/utilities/open-stripe-checkout.js"></script>
-    <script src="/js/index.js"></script>
-    <script src="/js/pages/498.page.js"></script>
-    <script src="/js/pages/account/account-overview.page.js"></script>
-    <script src="/js/pages/account/edit-password.page.js"></script>
-    <script src="/js/pages/account/edit-profile.page.js"></script>
-    <script src="/js/pages/branch/getbranch.page.js"></script>
-    <script src="/js/pages/contact.page.js"></script>
-    <script src="/js/pages/dashboard/welcome.page.js"></script>
-    <script src="/js/pages/entrance/confirmed-email.page.js"></script>
-    <script src="/js/pages/entrance/forgot-password.page.js"></script>
-    <script src="/js/pages/entrance/login.js"></script>
-    <script src="/js/pages/entrance/login.page.js"></script>
-    <script src="/js/pages/entrance/new-password.page.js"></script>
-    <script src="/js/pages/entrance/signup.page.js"></script>
-    <script src="/js/pages/faq.page.js"></script>
-    <script src="/js/pages/homepage.page.js"></script>
-    <script src="/js/pages/legal/privacy.page.js"></script>
-    <script src="/js/pages/legal/terms.page.js"></script>
-    <script src="/js/pages/package/getpackage.page.js"></script>
-    <script src="/js/pages/payment/payments.page.js"></script>
-    <script src="/js/pages/report/getreport.page.js"></script>
-    <!--SCRIPTS END-->
-  </body>
+                <% /* Auto-injected «script» tags: */ %>
+                    <!--SCRIPTS-->
+                    <script src="/dependencies/sails.io.js"></script>
+                    <script src="/dependencies/lodash.js"></script>
+                    <script src="/dependencies/jquery.min.js"></script>
+                    <script src="/dependencies/bowser.js"></script>
+                    <script src="/dependencies/vue.js"></script>
+                    <script src="/dependencies/bootstrap-4/bootstrap-4.bundle.js"></script>
+                    <script src="/dependencies/cloud.js"></script>
+                    <script src="/dependencies/jquery.datepicker.min.js"></script>
+                    <script src="/dependencies/jquery.datepicker.zen-US.js"></script>
+                    <script src="/dependencies/parasails.js"></script>
+                    <script src="/dependencies/vue-snotify.js"></script>
+                    <script src="/js/cloud.setup.js"></script>
+                    <script src="/js/components/ajax-button.component.js"></script>
+                    <script src="/js/components/ajax-form.component.js"></script>
+                    <script src="/js/components/modal.component.js"></script>
+                    <script src="/js/components/vuetable-2-full.js"></script>
+                    <script src="/js/utilities/open-stripe-checkout.js"></script>
+                    <script src="/js/index.js"></script>
+                    <script src="/js/pages/498.page.js"></script>
+                    <script src="/js/pages/account/account-overview.page.js"></script>
+                    <script src="/js/pages/account/edit-password.page.js"></script>
+                    <script src="/js/pages/account/edit-profile.page.js"></script>
+                    <script src="/js/pages/branch/getbranch.page.js"></script>
+                    <script src="/js/pages/contact.page.js"></script>
+                    <script src="/js/pages/dashboard/welcome.page.js"></script>
+                    <script src="/js/pages/entrance/confirmed-email.page.js"></script>
+                    <script src="/js/pages/entrance/forgot-password.page.js"></script>
+                    <script src="/js/pages/entrance/login.js"></script>
+                    <script src="/js/pages/entrance/login.page.js"></script>
+                    <script src="/js/pages/entrance/new-password.page.js"></script>
+                    <script src="/js/pages/entrance/signup.page.js"></script>
+                    <script src="/js/pages/faq.page.js"></script>
+                    <script src="/js/pages/homepage.page.js"></script>
+                    <script src="/js/pages/legal/privacy.page.js"></script>
+                    <script src="/js/pages/legal/terms.page.js"></script>
+                    <script src="/js/pages/package/getpackage.page.js"></script>
+                    <script src="/js/pages/payment/payments.page.js"></script>
+                    <script src="/js/pages/report/getreport.page.js"></script>
+                    <!--SCRIPTS END-->
+</body>
+
 </html>

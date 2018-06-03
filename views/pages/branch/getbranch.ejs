@@ -1,22 +1,17 @@
 <div id="getbranch" v-cloak>
 
+    <template>
+    <div>
+      <vue-snotify></vue-snotify>
+    </div>
+  </template>
 
-  <div id="table-wrapper" class="ui ">
-    <p></p>
-   <button  class="btn btn-primary float-right" @click="openBranchAddModel()"> Add New User </button> <br>
-   <h2>User List</h2>
-  <vuetable ref="vuetable"
-    api-url="/api/v1/branch/listbranch"
-    :fields="fields"
-    :sort-order="sortOrder"
-    :css="css.table"
-    pagination-path=""
-    :per-page="50"
-    @vuetable:pagination-data="onPaginationData"
-    @vuetable:loading="onLoading"        
-    @vuetable:loaded="onLoaded"
-  >
-    <template slot="actions" scope="props">
+    <div id="table-wrapper" class="ui ">
+        <p></p>
+        <button class="btn btn-primary float-right" @click="openBranchAddModel()"> Add New Branch </button> <br>
+        <h2>Branch List</h2>
+        <vuetable ref="vuetable" api-url="/api/v1/branch/listbranch" :fields="fields" :sort-order="sortOrder" :css="css.table" pagination-path="" :per-page="50" @vuetable:pagination-data="onPaginationData" @vuetable:loading="onLoading" @vuetable:loaded="onLoaded">
+            <template slot="actions" scope="props">
       <div class="table-button-container">
           <button class="btn btn-warning btn-sm" @click="editRow(props.rowData)">
             <span class="fas fa-edit"></span> Edit</button>&nbsp;&nbsp;
@@ -26,12 +21,37 @@
 
       </div>
       </template>
-    </vuetable>
-    <vuetable-pagination ref="pagination"
-      :css="css.pagination"
-      @vuetable-pagination:change-page="onChangePage"
-    ></vuetable-pagination>
-  </div>
+        </vuetable>
+        <vuetable-pagination ref="pagination" :css="css.pagination" @vuetable-pagination:change-page="onChangePage"></vuetable-pagination>
+    </div>
+
+
+    <!--  Add branch Model-->
+
+
+    <!-- model popup  -->
+    <modal v-if="branchAddModalVisible" @close="closeBranchAddModel()" v-cloak>
+        <div class="modal-header">
+            <h5 class="modal-title">Add New Branch</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span>&times;</span>
+        </button>
+        </div>
+        <!-- model body -->
+        <ajax-form action="savebranch" :syncing.sync="syncing" :cloud-error.sync="cloudError" :handle-parsing="handleParsingBranchSaveForm" @submitted="submittedBranchSaveForm">
+            <div class="form-group">
+                <label for="Place">Place</label>
+                <input type="text" class="form-control" id="Place" placeholder="Enter Place" v-model.trim="curBranch.Place">
+            </div>
+            <div class="form-group">
+                <label for="Name">Name</label>
+                <input type="text" class="form-control" id="Name" placeholder="Enter Branch Name" v-model.trim="curBranch.Name">
+            </div>
+            <ajax-button type="submit" :syncing="syncing" class="btn-dark btn-lg btn-block">Submit</ajax-button>
+
+        </ajax-form>
+    </modal>
+
 
 
 
