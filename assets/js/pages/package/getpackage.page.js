@@ -4,6 +4,62 @@ parasails.registerPage('getpackage', {
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
   data: {
     //…
+    curPackage : {},
+    formData: { /* … */ },
+
+
+    // Syncing / loading state
+    syncing: false,
+ 
+    cloudError: {},
+    formErrors: {},
+    lstbranch: [{ bid: "1", Name: "Malumichambatti" }],
+    packageAddModalVisible: false,
+    fields: [ 
+        {
+            name: 'Name',
+            title: 'Name',
+            sortField: 'Name'
+        },
+        {
+            name: 'Amount',
+            title: "Amount",
+            sortField: 'Amount'
+          },
+          {
+              name: 'branchname',
+              title: 'Branch Name',
+              sortField: 'branchname'
+          },
+          '__slot:actions'
+      ],
+      sortOrder: [
+          { field: 'name', direction: 'asc' }
+      ],
+      css: {
+          table: {
+              tableClass: 'table table-striped table-bordered table-hovered',
+              loadingClass: 'loading',
+              ascendingIcon: 'glyphicon glyphicon-chevron-up',
+              descendingIcon: 'glyphicon glyphicon-chevron-down',
+              handleIcon: 'glyphicon glyphicon-menu-hamburger',
+          },
+          pagination: {
+              infoClass: 'pull-left',
+              wrapperClass: 'vuetable-pagination pull-right',
+              activeClass: 'btn-primary',
+              disabledClass: 'disabled',
+              pageClass: 'btn btn-border',
+              linkClass: 'btn btn-border',
+              icons: {
+                  first: '',
+                  prev: '',
+                  next: '',
+                  last: '',
+              },
+          }
+      }
+
   },
 
   //  ╦  ╦╔═╗╔═╗╔═╗╦ ╦╔═╗╦  ╔═╗
@@ -22,5 +78,88 @@ parasails.registerPage('getpackage', {
   //  ╩╝╚╝ ╩ ╚═╝╩╚═╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝╚═╝
   methods: {
     //…
+
+    openPackageAddModel : function(){
+      this.packageAddModalVisible = true;
+      this.curPackage = {};
+      this.curPackage.Sid = 0;
+    },
+    closePackageAddModel : function(){
+      this.packageAddModalVisible = false;
+    },
+    handleParsingPackageSaveForm : function(){
+
+      var _self = this; 
+      Object.keys(this.curPackage ).forEach(function(key) {
+          _self.curPackage[key] = (_self.curPackage[key]) ? _self.curPackage[key] : undefined;
+      });
+      var argins = this.curPackage;
+
+      if (Object.keys(this.formErrors).length > 0) {
+          return;
+      }
+
+      return argins;
+
+    },
+    submittedPackageSaveForm : function(){
+
+      if (response.scode == 200) {
+        this.userAddModalVisible = false;
+        this.$refs.vuetable.refresh();
+        this.$snotify.success('The Package Information saved successfully..!', 'Save Package', {
+            timeout: 2000,
+            showProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true
+        });
+    } else {
+        this.$snotify.error('Failed to save..!', 'Save Package', {
+            timeout: 2000,
+            showProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true
+        });
+
+    }
+
+    },
+    onLoading() {
+      console.log('loading... show your spinner here')
+  },
+  onLoaded() {
+      console.log('loaded! .. hide your spinner here')
+  },
+  onPaginationData(paginationData) {
+    this.$refs.pagination.setPaginationData(paginationData)
+},
+onChangePage(page) {
+    this.$refs.vuetable.changePage(page)
+},
+editRow(rowData) {
+  this.packageAddModalVisible = true;
+  this.curPackage = rowData; 
+},
+deleteRow(rowData) {
+  this.$snotify.confirm('Are you sure want to delete this Package?', 'Delete Package', {
+      timeout: 0,
+      closeOnClick: false,
+      pauseOnHover: true,
+      buttons: [
+          { text: 'Yes', action: () => console.log('Clicked: Yes'), bold: false },
+
+          {
+              text: 'No',
+              action: (toast) => {
+                  console.log('Clicked: No');
+                  this.$snotify.remove(toast.id);
+              },
+              bold: true
+          },
+      ]
+  });
+  //alert("You clicked delete on"+ JSON.stringify(rowData))
+},
+
   }
 });

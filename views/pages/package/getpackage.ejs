@@ -1,7 +1,90 @@
 <div id="getpackage" v-cloak>
+  <template>
+    <div>
+      <vue-snotify></vue-snotify>
+    </div>
+  </template>
 
-  <h1>TODO: Implement this page.</h1>
-  <p>(See also <em>assets\styles\pages\package\getpackage.less</em>, <em>assets\js\pages\package\getpackage.page.js</em>, and <em>api\controllers\package\view-getpackage.js</em>.)</p>
+
+
+  
+  <div id="table-wrapper" class="ui ">
+    <p></p>
+    <button class="btn btn-primary float-right" @click="openPackageAddModel()"> Add New Package </button> <br>
+    <h2>User List</h2>
+    <vuetable ref="vuetable" api-url="/api/v1/package/listpackage" :fields="fields" :sort-order="sortOrder" :css="css.table" pagination-path="" :per-page="50" @vuetable:pagination-data="onPaginationData" @vuetable:loading="onLoading" @vuetable:loaded="onLoaded">
+        <template slot="actions" scope="props">
+         <div class="table-button-container">
+             <button class="btn btn-warning btn-sm" @click="editRow(props.rowData)">
+               <span class="fas fa-edit"></span> Edit</button>&nbsp;&nbsp;
+             <button class="btn btn-danger btn-sm" @click="deleteRow(props.rowData)">
+               <span class="glyphicon glyphicon-trash"></span> Delete</button>&nbsp;&nbsp;
+               <button class="btn btn-success btn-sm" @click="PayNow(props.rowData)">
+                <span class="glyphicon glyphicon-shopping-cart"></span> Pay</button>&nbsp;&nbsp;
+
+
+         </div>
+         </template>
+    </vuetable>
+    <vuetable-pagination ref="pagination" :css="css.pagination" @vuetable-pagination:change-page="onChangePage"></vuetable-pagination>
+</div>
+
+
+
+    <!-- model popup  --> 
+    <modal v-if="packageAddModalVisible" @close="closePackageAddModel()" v-cloak>
+      <div class="modal-header">
+          <h5 class="modal-title">Add New Package</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span>&times;</span>
+        </button>
+      </div>
+      <!-- model body -->
+      <ajax-form action="savepackage" :syncing.sync="syncing" :cloud-error.sync="cloudError" :handle-parsing="handleParsingPackageSaveForm" @submitted="submittedPackageSaveForm">
+      
+          <div class="form-group">
+              <label for="packagename">Package Name</label>
+              <input type="text" class="form-control" id="packagename" placeholder="Enter Package Name" v-model.trim="curPackage.Name">
+          </div>
+
+          <div class="form-group">
+              <label for="cost">Cost</label>
+              <input type="number" class="form-control" id="cost" placeholder="Enter Amount" v-model.trim="curPackage.Amount">
+          </div>
+
+          <div class="form-group">
+              <label for="usrBranch">Branch</label>
+              <select class="form-control" id="usrBranch" v-model.trim="curPackage.bid">
+              <option  v-for="slgbr of lstbranch" :value="slgbr.bid">{{slgbr.Name}}</option>
+              </select>
+          </div>
+
+          <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="SType" v-model.trim="curPackage.SType">Fees
+              </label>
+            </div>
+            <div class="form-check-inline">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="SType" v-model.trim="curPackage.SType">Personal Trainee
+              </label>
+            </div>
+            <div class="form-check-inline ">
+              <label class="form-check-label">
+                <input type="radio" class="form-check-input" name="SType" v-model.trim="curPackage.SType" >Diet
+              </label>
+            </div>
+            <ajax-button type="submit" :syncing="syncing" class="btn-dark btn-lg btn-block">Submit</ajax-button>
+
+
+      </ajax-form>
+  </modal>
+    
+
+    
+    <!-- model popup  -->
+
+
 
 </div>
 <%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

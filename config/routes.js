@@ -61,6 +61,8 @@ module.exports.routes = {
     'GET /api/v1/branch/listbranch': { action: 'branch/listbranch' },
     'POST /api/v1/branch/savebranch': { action: 'branch/savebranch' },
     'GET /api/v1/branch/deletebranch': { action: 'branch/deletebranch' },
+    'GET /api/v1/package/listpackage': { action: 'package/listpackage' },
+    'POST /api/v1/package/savepackage': { action: 'package/savepackage' },
 
     //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗
     //  ║║║║╣ ╠╩╗╠═╣║ ║║ ║╠╩╗╚═╗
