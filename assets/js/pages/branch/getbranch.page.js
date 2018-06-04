@@ -1,4 +1,5 @@
 Vue.use(Vuetable);
+ 
 parasails.registerPage('getbranch', {
     //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
     //  ║║║║║ ║ ║╠═╣║    ╚═╗ ║ ╠═╣ ║ ║╣
@@ -74,6 +75,7 @@ parasails.registerPage('getbranch', {
 
         openBranchAddModel: function() {
             this.branchAddModalVisible = true;
+            this.curBranch = {};
             this.curBranch.bid = 0;
         },
 
@@ -92,13 +94,38 @@ parasails.registerPage('getbranch', {
             this.curBranch = rowData;
         },
         deleteRow(rowData) {
+            var bid = rowData.bid;
 
             this.$snotify.confirm('Are you sure want to delete this branch?', 'Delete Branch', {
                 timeout: 0,
                 closeOnClick: false,
                 pauseOnHover: true,
                 buttons: [
-                    { text: 'Yes', action: () => console.log('Clicked: Yes'), bold: false },
+                    { text: 'Yes', action: (toast) => {
+                        console.log('Clicked: Yes');
+                        this.$snotify.remove(toast.id);
+                        var route = "/api/v1/branch/deletebranch?bid="+bid;
+                        $.get(route).then((response)=>{
+                            if (response.scode == 200) {
+                                 
+                                this.$snotify.success('The Branch has been deleted successfully..!', 'Delete Branch', {
+                                    timeout: 2000,
+                                    showProgressBar: false,
+                                    closeOnClick: false,
+                                    pauseOnHover: true
+                                });
+                                this.$refs.vuetable.refresh();
+                            } else {
+                                this.$snotify.error('Unable to delete this branch..!', 'Delete Branch', {
+                                    timeout: 2000,
+                                    showProgressBar: false,
+                                    closeOnClick: false,
+                                    pauseOnHover: true
+                                });
+                            }
+                        });
+
+                    }, bold: false },
 
                     {
                         text: 'No',

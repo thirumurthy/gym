@@ -60,7 +60,7 @@ module.exports.routes = {
     'POST /api/v1/user/saveuser': { action: 'user/saveuser' },
     'GET /api/v1/branch/listbranch': { action: 'branch/listbranch' },
     'POST /api/v1/branch/savebranch': { action: 'branch/savebranch' },
-
+    'GET /api/v1/branch/deletebranch': { action: 'branch/deletebranch' },
 
     //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗
     //  ║║║║╣ ╠╩╗╠═╣║ ║║ ║╠╩╗╚═╗

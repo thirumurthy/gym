@@ -41,7 +41,7 @@
         <ajax-form action="savebranch" :syncing.sync="syncing" :cloud-error.sync="cloudError" :handle-parsing="handleParsingBranchSaveForm" @submitted="submittedBranchSaveForm">
             <div class="form-group">
                 <label for="Place">Place</label>
-                <input type="text" class="form-control" id="Place" placeholder="Enter Place" v-model.trim="curBranch.Place">
+                <input type="text" class="form-control" id="Place" placeholder="Enter Place" v-model.trim="curBranch.Place" focus-first>
             </div>
             <div class="form-group">
                 <label for="Name">Name</label>
