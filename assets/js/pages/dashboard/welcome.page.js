@@ -187,6 +187,7 @@ parasails.registerPage('welcome', {
         handleParsingUserSaveForm: function() {
 
             var _self = this;
+            this.curUser.JoinDate = $("#joindate").val();
             Object.keys(this.curUser).forEach(function(key) {
                 _self.curUser[key] = (_self.curUser[key]) ? _self.curUser[key] : undefined;
             });
@@ -202,6 +203,7 @@ parasails.registerPage('welcome', {
 
             if (response.scode == 200) {
                 this.userAddModalVisible = false;
+                this.$refs.vuetable.refresh();
                 this.$snotify.success('The user Information saved successfully..!', 'Save User', {
                     timeout: 2000,
                     showProgressBar: false,

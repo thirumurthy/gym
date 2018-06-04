@@ -150,6 +150,7 @@ parasails.registerPage('getbranch', {
 
             if (response.scode == 200) {
                 this.branchAddModalVisible = false;
+                this.$refs.vuetable.refresh();
                 this.$snotify.success('The Branch Information saved successfully..!', 'Save Branch', {
                     timeout: 2000,
                     showProgressBar: false,

@@ -53,14 +53,14 @@
             </div>
             <div class="form-group">
                 <label for="usrBranch">Branch</label>
-                <select class="form-control" id="usrBranch">
+                <select class="form-control" id="usrBranch" v-model.trim="curUser.bid">
           <option  v-for="slgbr of lstbranch" :value="slgbr.bid">{{slgbr.Name}}</option>
           
         </select>
             </div>
             <div class="form-group">
                 <label for="joindate">Join Date</label>
-                <input type="text" class="form-control" id="joindate" placeholder="Enter Join Date">
+                <input type="text" class="form-control" id="joindate" placeholder="Enter Join Date" v-model.trim="curUser.JoinDate">
             </div>
             <div class="form-group">
                 <label for="height">Height</label>
