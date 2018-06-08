@@ -6,8 +6,9 @@ parasails.registerPage('getpackage', {
     //…
     curPackage : {},
     formData: { /* … */ },
-
-
+    prlst : [{ id:1, name : "Days"}, {id:2, name : "Month"}, {id:3, name:"Year"}],
+    ptype : 1,
+    period : 0,
     // Syncing / loading state
     syncing: false,
  
@@ -83,6 +84,9 @@ parasails.registerPage('getpackage', {
       this.packageAddModalVisible = true;
       this.curPackage = {};
       this.curPackage.Sid = 0;
+    },
+    getdays : function(){
+        return period * ( (ptype==1) ? 1: (ptype==2?30:365   ) ) ;
     },
     closePackageAddModel : function(){
       this.packageAddModalVisible = false;

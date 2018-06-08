@@ -92,7 +92,7 @@ header[role=banner]::after {
   margin-right: 5%;
   width: 44px;
   height: 100%;
-  background: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-menu.svg") no-repeat center center;
+  background: url("../images/svg/cd-icon-menu.svg") no-repeat center center;
   cursor: pointer;
 }
 .main-nav ul {
@@ -304,13 +304,13 @@ xsigin/signup popup
   background-position: 50% 0;
 }
 .cd-form label.cd-username {
-  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-username.svg");
+  background-image: url("images/svg/cd-icon-username.svg");
 }
 .cd-form label.cd-email {
-  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-email.svg");
+  background-image: url("images/svg/cd-icon-email.svg");
 }
 .cd-form label.cd-password {
-  background-image: url("https://s3-us-west-2.amazonaws.com/s.cdpn.io/148866/cd-icon-password.svg");
+  background-image: url("images/svg/cd-icon-password.svg");
 }
 .cd-form input {
   margin: 0;

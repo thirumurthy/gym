@@ -44,12 +44,21 @@
       
           <div class="form-group">
               <label for="packagename">Package Name</label>
-              <input type="text" class="form-control" id="packagename" placeholder="Enter Package Name" v-model.trim="curPackage.Name">
+              <input type="text" class="form-control" id="packagename" placeholder="Enter Package Name" v-model.trim="curPackage.Name" focus-first>
           </div>
 
           <div class="form-group">
               <label for="cost">Cost</label>
               <input type="number" class="form-control" id="cost" placeholder="Enter Amount" v-model.trim="curPackage.Amount">
+          </div>
+          <div class="form-inline">
+            <label for="period">Period &nbsp;&nbsp;</label>
+            <input type="number" class="form-control" id="period" placeholder="Enter value" v-model.trim="period">
+            <label for="ptype"> &nbsp; Type &nbsp;&nbsp;</label>
+            <select class="form-control" id="ptype" v-model.trim="ptype">
+            <option  v-for="slgpr of prlst" :value="slgpr.id">{{slgpr.name}}</option>
+            </select>
+           &nbsp;&nbsp; Will expire on {{ period * ( (ptype==1) ? 1: (ptype==2?30:365   ) )  }} days
           </div>
 
           <div class="form-group">
