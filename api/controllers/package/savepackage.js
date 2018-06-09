@@ -32,6 +32,16 @@ module.exports = {
     Name : {
       type : "string",
       required : true
+    },
+
+    period : {
+      type : "number",
+      required : true
+    },
+
+    ptype : {
+      type : "number",
+      required : true
     }
 
   },
@@ -48,9 +58,9 @@ module.exports = {
 
     try{
       if(!inputs.Sid) inputs.Sid=0;
-      var USER_SAVE_SQL = 'call sp_subs_save( $1, $2 , $3, $4, $5, $6, $7 )';
+      var USER_SAVE_SQL = 'call sp_subs_save( $1, $2 , $3, $4, $5, $6, $7, $8, $9 )';
       
-      var rawResult = await sails.sendNativeQuery(USER_SAVE_SQL, [ inputs.Sid, inputs.NoOfDays , inputs.Amount , inputs.SType , inputs.bid, this.req.session.userId , inputs.Name ]);
+      var rawResult = await sails.sendNativeQuery(USER_SAVE_SQL, [ inputs.Sid, inputs.NoOfDays , inputs.Amount , inputs.SType , inputs.bid, this.req.session.userId , inputs.Name, inputs.period, inputs.ptype ]);
 
       resp =rawResult.rows[0][0];
 

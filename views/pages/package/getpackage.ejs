@@ -18,10 +18,7 @@
              <button class="btn btn-warning btn-sm" @click="editRow(props.rowData)">
                <span class="fas fa-edit"></span> Edit</button>&nbsp;&nbsp;
              <button class="btn btn-danger btn-sm" @click="deleteRow(props.rowData)">
-               <span class="glyphicon glyphicon-trash"></span> Delete</button>&nbsp;&nbsp;
-               <button class="btn btn-success btn-sm" @click="PayNow(props.rowData)">
-                <span class="glyphicon glyphicon-shopping-cart"></span> Pay</button>&nbsp;&nbsp;
-
+               <span class="glyphicon glyphicon-trash"></span> Delete</button>
 
          </div>
          </template>
@@ -53,12 +50,12 @@
           </div>
           <div class="form-inline">
             <label for="period">Period &nbsp;&nbsp;</label>
-            <input type="number" class="form-control" id="period" placeholder="Enter value" v-model.trim="period">
+            <input type="number" class="form-control" id="period" placeholder="Enter value" v-model.trim="curPackage.period">
             <label for="ptype"> &nbsp; Type &nbsp;&nbsp;</label>
-            <select class="form-control" id="ptype" v-model.trim="ptype">
+            <select class="form-control" id="ptype" v-model.trim="curPackage.ptype">
             <option  v-for="slgpr of prlst" :value="slgpr.id">{{slgpr.name}}</option>
             </select>
-           &nbsp;&nbsp; Will expire on {{ period * ( (ptype==1) ? 1: (ptype==2?30:365   ) )  }} days
+           &nbsp;&nbsp; Will expire on {{ curPackage.period * ( (curPackage.ptype==1) ? 1: (curPackage.ptype==2?30:365   ) )  }} days
           </div>
 
           <div class="form-group">
@@ -70,17 +67,17 @@
 
           <div class="form-check-inline">
               <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="SType" v-model.trim="curPackage.SType">Fees
+                <input type="radio" class="form-check-input" name="SType" v-model.trim="curPackage.SType" value="1">Fees
               </label>
             </div>
             <div class="form-check-inline">
               <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="SType" v-model.trim="curPackage.SType">Personal Trainee
+                <input type="radio" class="form-check-input" name="SType" v-model.trim="curPackage.SType" value="2">Personal Trainee
               </label>
             </div>
             <div class="form-check-inline ">
               <label class="form-check-label">
-                <input type="radio" class="form-check-input" name="SType" v-model.trim="curPackage.SType" >Diet
+                <input type="radio" class="form-check-input" name="SType" v-model.trim="curPackage.SType" value="3">Diet
               </label>
             </div>
             <ajax-button type="submit" :syncing="syncing" class="btn-dark btn-lg btn-block">Submit</ajax-button>

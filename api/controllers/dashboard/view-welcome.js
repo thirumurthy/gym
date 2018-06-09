@@ -36,6 +36,7 @@ module.exports = {
 
     return exits.success(
       {
+        cpage : "welcome",
         lstbranch : lstbranch
       }
     );

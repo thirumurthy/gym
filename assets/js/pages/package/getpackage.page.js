@@ -7,8 +7,7 @@ parasails.registerPage('getpackage', {
     curPackage : {},
     formData: { /* … */ },
     prlst : [{ id:1, name : "Days"}, {id:2, name : "Month"}, {id:3, name:"Year"}],
-    ptype : 1,
-    period : 0,
+   
     // Syncing / loading state
     syncing: false,
  
@@ -23,9 +22,19 @@ parasails.registerPage('getpackage', {
             sortField: 'Name'
         },
         {
+            name: 'NoOfDays',
+            title: 'Validity(Days)',
+            sortField: 'NoOfDays'
+        },
+        {
             name: 'Amount',
             title: "Amount",
             sortField: 'Amount'
+          },
+          {
+            name: 'SubType',
+            title: "Type",
+            sortField: 'SubType'
           },
           {
               name: 'branchname',
@@ -84,9 +93,11 @@ parasails.registerPage('getpackage', {
       this.packageAddModalVisible = true;
       this.curPackage = {};
       this.curPackage.Sid = 0;
+      this.curPackage.ptype = 1;
+      this.curPackage.period = 0;
     },
     getdays : function(){
-        return period * ( (ptype==1) ? 1: (ptype==2?30:365   ) ) ;
+        return this.curPackage.period * ( (this.curPackage.ptype==1) ? 1: (this.curPackage.ptype==2?30:365   ) ) ;
     },
     closePackageAddModel : function(){
       this.packageAddModalVisible = false;
@@ -94,6 +105,7 @@ parasails.registerPage('getpackage', {
     handleParsingPackageSaveForm : function(){
 
       var _self = this; 
+      this.curPackage.NoOfDays = this.getdays();
       Object.keys(this.curPackage ).forEach(function(key) {
           _self.curPackage[key] = (_self.curPackage[key]) ? _self.curPackage[key] : undefined;
       });
@@ -106,10 +118,11 @@ parasails.registerPage('getpackage', {
       return argins;
 
     },
-    submittedPackageSaveForm : function(){
+    submittedPackageSaveForm : function(response){
 
       if (response.scode == 200) {
-        this.userAddModalVisible = false;
+         
+        this.packageAddModalVisible = false;
         this.$refs.vuetable.refresh();
         this.$snotify.success('The Package Information saved successfully..!', 'Save Package', {
             timeout: 2000,
@@ -145,12 +158,37 @@ editRow(rowData) {
   this.curPackage = rowData; 
 },
 deleteRow(rowData) {
+    var Sid = rowData.Sid;
   this.$snotify.confirm('Are you sure want to delete this Package?', 'Delete Package', {
       timeout: 0,
       closeOnClick: false,
       pauseOnHover: true,
       buttons: [
-          { text: 'Yes', action: () => console.log('Clicked: Yes'), bold: false },
+        { text: 'Yes', action: (toast) => {
+            console.log('Clicked: Yes');
+            this.$snotify.remove(toast.id);
+            var route = "/api/v1/package/delpackage?sid="+Sid;
+            $.get(route).then((response)=>{
+                if (response.scode == 200) {
+                     
+                    this.$snotify.success('The Package has been deleted successfully..!', 'Delete Package', {
+                        timeout: 2000,
+                        showProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: true
+                    });
+                    this.$refs.vuetable.refresh();
+                } else {
+                    this.$snotify.error('Unable to delete this Package..!', 'Delete Package', {
+                        timeout: 2000,
+                        showProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: true
+                    });
+                }
+            });
+
+        }, bold: false },
 
           {
               text: 'No',
