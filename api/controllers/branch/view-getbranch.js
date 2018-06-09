@@ -28,7 +28,11 @@ module.exports = {
     
 
     this.res.locals.layout = 'layouts/layout';
-    return exits.success();
+    return exits.success(
+      {
+        cpage : "branch",
+      }
+    );
 
   }
 

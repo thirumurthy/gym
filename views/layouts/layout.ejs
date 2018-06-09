@@ -43,11 +43,11 @@
                 <nav class="main-nav">
                     <ul>
                         <!-- inser more links here -->
-                        <li><a class="cd-signin" href="/welcome">Users</a></li>
-                        <li><a class="" href="/payments">Payments</a></li>
-                        <li><a class="cd" href="/package">Packages</a></li>
-                        <li><a class="cd" href="/branch">Branchs</a></li>
-                        <li><a class="cd" href="/report">Report</a></li>
+                        <li><a  class='<% if(cpage == "welcome") { %>cd-signin <%}%>' href="/welcome">Users</a></li>
+                        <li><a class='<% if(cpage == "payment") { %>cd-signin <%}%>' href="/payments">Payments</a></li>
+                        <li><a class='<% if(cpage == "package") { %>cd-signin <%}%>' href="/package">Packages</a></li>
+                        <li><a class='<% if(cpage == "branch") { %>cd-signin <%}%>' href="/branch">Branchs</a></li>
+                        <li><a class='<% if(cpage == "report") { %>cd-signin <%}%>' href="/report">Report</a></li>
                         <li><a class="cd" href="/logout">Logout</a></li>
                         <!-- <li><a class="cd-signup" href="#0">Sign up</a></li> -->
                     </ul>
