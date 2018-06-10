@@ -64,7 +64,9 @@ module.exports.routes = {
     'GET /api/v1/package/listpackage': { action: 'package/listpackage' },
     'POST /api/v1/package/savepackage': { action: 'package/savepackage' },
     'GET /api/v1/package/delpackage': { action: 'package/delpackage' },
-
+    'POST /api/v1/payment/savepayment': { action: 'payment/savepayment' },
+    'GET /api/v1/payment/delpayment': { action: 'payment/delpayment' },
+    'GET /api/v1/payment/listpayment': { action: 'payment/listpayment' },
 
     //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗
     //  ║║║║╣ ╠╩╗╠═╣║ ║║ ║╠╩╗╚═╗
