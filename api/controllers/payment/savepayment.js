@@ -59,7 +59,7 @@ module.exports = {
        
       var PAY_SAVE_SQL = 'call sp_user_subs_pay( $1, $2 , $3, $4, $5, $6, $7, $8, $9 )';
       
-      var rawResult = await sails.sendNativeQuery(USER_SAVE_SQL, [ inputs.UserId, inputs.Sid, inputs.JoinDate, inputs.ExpireDate, inputs.SType, inputs.PaidAmount, inputs.PaymentStatus, this.req.session.userId , inputs.Notes ]);
+      var rawResult = await sails.sendNativeQuery(PAY_SAVE_SQL, [ inputs.UserId, inputs.Sid, inputs.JoinDate, inputs.ExpireDate, inputs.SType, inputs.PaidAmount, inputs.PaymentStatus, this.req.session.userId , inputs.Notes ]);
 
       resp =rawResult.rows[0][0];
 

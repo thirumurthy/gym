@@ -14,6 +14,7 @@ parasails.registerPage('getpackage', {
     cloudError: {},
     formErrors: {},
     lstbranch: [{ bid: "1", Name: "Malumichambatti" }],
+    lstpack :[],
     packageAddModalVisible: false,
     fields: [ 
         {
