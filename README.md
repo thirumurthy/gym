@@ -29,7 +29,7 @@ Nodejs
 Mysql
 
 # Copyright and license
-Gym Management Application is an open source project by Thirumurthy that is licensed under MIT. Thirumurthy reserves the right to change the license of future releases.
+Gym Management Application is an open source project by Thirumurthy that is licensed under MIT.
 
 
 
