@@ -15,6 +15,9 @@
     
 # Documentation
 
+Navigate the project folder and run the command 
+`Sails lift`
+
 
 # Contributing
    Contribution are always welcome and recommended! 
