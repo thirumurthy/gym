@@ -12,7 +12,7 @@
 
 
 Vue.use(Vuetable);
-
+ 
 
 parasails.registerPage('welcome', {
     //  ╦╔╗╔╦╔╦╗╦╔═╗╦    ╔═╗╔╦╗╔═╗╔╦╗╔═╗
@@ -22,12 +22,19 @@ parasails.registerPage('welcome', {
 
 
     components: {
-        'vuetable-pagination': Vuetable.VuetablePagination
+        'vuetable-pagination': Vuetable.VuetablePagination,
+        FileUpload : VueUploadComponent,
+        Cropper : 'cropperjs'
     },
     data: {
         // Form data
         formData: { /* … */ },
 
+        // file upload
+        files: [],
+        edit: false,
+        cropper: false,
+        // file upload
 
         // Syncing / loading state
         syncing: false,
@@ -103,6 +110,28 @@ parasails.registerPage('welcome', {
     //  ╦╔╗╔╔╦╗╔═╗╦═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗
     //  ║║║║ ║ ║╣ ╠╦╝╠═╣║   ║ ║║ ║║║║╚═╗
     //  ╩╝╚╝ ╩ ╚═╝╩╚═╩ ╩╚═╝ ╩ ╩╚═╝╝╚╝╚═╝
+
+    watch: {
+        edit(value) {
+          if (value) {
+            this.$nextTick(function () {
+              if (!this.$refs.editImage) {
+                return
+              }
+              let cropper = new Cropper(this.$refs.editImage, {
+                aspectRatio: 1 / 1,
+                viewMode: 1,
+              })
+              this.cropper = cropper
+            })
+          } else {
+            if (this.cropper) {
+              this.cropper.destroy()
+              this.cropper = false
+            }
+          }
+        }
+      },
 
     methods: {
 
@@ -223,6 +252,62 @@ parasails.registerPage('welcome', {
 
 
         },
+
+        // file upload methods
+
+        editSave() {
+            this.edit = false
+            let oldFile = this.files[0]
+            let binStr = atob(this.cropper.getCroppedCanvas().toDataURL(oldFile.type).split(',')[1])
+            let arr = new Uint8Array(binStr.length)
+            for (let i = 0; i < binStr.length; i++) {
+              arr[i] = binStr.charCodeAt(i)
+            }
+            let file = new File([arr], oldFile.name, { type: oldFile.type })
+            this.$refs.upload.update(oldFile.id, {
+              file,
+              type: file.type,
+              size: file.size,
+              active: true,
+            })
+          },
+          alert(message) {
+            alert(message)
+          },
+          inputFile(newFile, oldFile, prevent) {
+            if (newFile && !oldFile) {
+              this.$nextTick(function () {
+                this.edit = true
+              })
+            }
+            if (!newFile && oldFile) {
+              this.edit = false
+            }
+          },
+          inputFilter(newFile, oldFile, prevent) {
+            if (newFile && !oldFile) {
+              if (!/\.(gif|jpg|jpeg|png|webp)$/i.test(newFile.name)) {
+                this.alert('Your choice is not a picture')
+                return prevent()
+              }
+            }
+            if (newFile && (!oldFile || newFile.file !== oldFile.file)) {
+              newFile.url = ''
+              let URL = window.URL || window.webkitURL
+              if (URL && URL.createObjectURL) {
+                newFile.url = URL.createObjectURL(newFile.file)
+              }
+            }
+          },
+        
+
+          customAction : async function (file, component) {
+            // return await component.uploadPut(file)
+            file.postAction = "/api/v1/files/uploadfile?userid=1&id=1&utype=avatar";
+            return await component.uploadHtml4(file)
+          }
+
+        // file upload methods
 
     }
 });

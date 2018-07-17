@@ -20,5 +20,6 @@ module.exports.policies = {
   'user/*': true,
   'payment/*': true,
   'package/*': true,
-  'report/*':true
+  'report/*':true,
+  'files/*':true
 };

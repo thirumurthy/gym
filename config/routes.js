@@ -68,6 +68,9 @@ module.exports.routes = {
     'GET /api/v1/payment/delpayment': { action: 'payment/delpayment' },
     'GET /api/v1/payment/listpayment': { action: 'payment/listpayment' },
 
+    // file upload
+    'POST /api/v1/files/uploadfile': { action: 'files/uploadfile' },
+
     //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗
     //  ║║║║╣ ╠╩╗╠═╣║ ║║ ║╠╩╗╚═╗
     //  ╚╩╝╚═╝╚═╝╩ ╩╚═╝╚═╝╩ ╩╚═╝
