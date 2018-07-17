@@ -1,29 +1,39 @@
-# gymapp
-
-a [Sails v1](https://sailsjs.com) application
-
-
-### Links
-
-+ [Get started](https://sailsjs.com/get-started)
-+ [Sails framework documentation](https://sailsjs.com/documentation)
-+ [Version notes / upgrading](https://sailsjs.com/documentation/upgrading)
-+ [Deployment tips](https://sailsjs.com/documentation/concepts/deployment)
-+ [Community support options](https://sailsjs.com/support)
-+ [Professional / enterprise options](https://sailsjs.com/enterprise)
+# Gym Management Application
+  It is written in Nodejs (Sails 1.0). This application is useful for maintaining the fees and user subscriptions.
 
 
-### Version info
+# Prerequisites for this Software
+1. NodeJs version >9
+     You can download and install nodejs from this URL: https://nodejs.org/en/
+2. NPM version >6
+3. Sails  version >1.0
+4. MySql Server.
 
-This app was originally generated on Sat May 19 2018 21:58:23 GMT+0530 (India Standard Time) using Sails v1.0.1.
+# Installation
+1.  Download
+    https://github.com/thirumurthy/gym/archive/master.zip
+    
+# Documentation
 
-<!-- Internally, Sails used [`sails-generate@1.15.19`](https://github.com/balderdashy/sails-generate/tree/v1.15.19/lib/core-generators/new). -->
+Navigate the project folder and run the command 
+`Sails lift`
 
 
-This project's boilerplate is based on an expanded seed app provided by the [Sails core team](https://sailsjs.com/about) to make it easier for you to build on top of ready-made features like authentication, enrollment, email verification, and billing.  For more information, [drop us a line](https://sailsjs.com/support).
+# Contributing
+   Contribution are always welcome and recommended! 
+   
+# Creators
+  Thirumurthy
+  
+# Credits
+
+Sails Framework
+Nodejs
+Mysql
+
+# Copyright and license
+Gym Management Application is an open source project by Thirumurthy that is licensed under MIT.
 
 
-<!--
-Note:  Generators are usually run using the globally-installed `sails` CLI (command-line interface).  This CLI version is _environment-specific_ rather than app-specific, thus over time, as a project's dependencies are upgraded or the project is worked on by different developers on different computers using different versions of Node.js, the Sails dependency in its package.json file may differ from the globally-installed Sails CLI release it was originally generated with.  (Be sure to always check out the relevant [upgrading guides](https://sailsjs.com/upgrading) before upgrading the version of Sails used by your app.  If you're stuck, [get help here](https://sailsjs.com/support).)
--->
+
 
