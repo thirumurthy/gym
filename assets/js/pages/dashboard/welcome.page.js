@@ -42,6 +42,7 @@ parasails.registerPage('welcome', {
         curUser: {},
         cloudError: {},
         formErrors: {},
+        
         lstbranch: [{ bid: "1", Name: "Malumichambatti" }],
         userAddModalVisible: false,
         fields: [{
@@ -53,6 +54,11 @@ parasails.registerPage('welcome', {
                 name: 'Name',
                 title: 'Name',
                 sortField: 'Name'
+            },
+            {
+                name: 'bName',
+                title : 'Branch',
+                sortField:'bName'
             },
             {
                 name: 'ExpireDays',
@@ -144,13 +150,14 @@ parasails.registerPage('welcome', {
         },
         PayNow(rowData) {
 
-            window.location.href = "/payments?userid=" + rowData.UserId;
+            window.location.href = "/payments?userid=" + rowData.UserId+"&bid="+rowData.bid;
 
         },
         editRow(rowData) {
             this.userAddModalVisible = true;
             this.curUser = rowData;
-
+            this.files = [];
+            this.files.push({url: this.curUser.filename?"/userfiles/avatar/"+this.curUser.UserId+"/"+this.curUser.UserId+"/"+this.curUser.filename:"/userfiles/avatar/avatar.png" } );
 
             var curdate = (this.curUser.JoinDate || '');
             setTimeout(() => {
@@ -193,6 +200,7 @@ parasails.registerPage('welcome', {
 
 
         openUserAddModel: async function() {
+            this.curUser = {};
             this.curUser.UserId = 0;
             this.userAddModalVisible = true;
             $(function() {
@@ -211,6 +219,7 @@ parasails.registerPage('welcome', {
 
         closeUserAddModel: async function() {
             this.userAddModalVisible = false;
+            this.$refs.vuetable.refresh();
 
         },
         handleParsingUserSaveForm: function() {
@@ -264,12 +273,13 @@ parasails.registerPage('welcome', {
               arr[i] = binStr.charCodeAt(i)
             }
             let file = new File([arr], oldFile.name, { type: oldFile.type })
-            this.$refs.upload.update(oldFile.id, {
+            let result=this.$refs.upload.update(oldFile.id, {
               file,
               type: file.type,
               size: file.size,
               active: true,
             })
+            console.log(result);
           },
           alert(message) {
             alert(message)
@@ -303,8 +313,12 @@ parasails.registerPage('welcome', {
 
           customAction : async function (file, component) {
             // return await component.uploadPut(file)
-            file.postAction = "/api/v1/files/uploadfile?userid=1&id=1&utype=avatar";
-            return await component.uploadHtml4(file)
+            if(this.curUser.UserId>0)
+            {
+                file.postAction = "/api/v1/files/uploadfile?userid="+this.curUser.UserId+"&id="+this.curUser.UserId+"&utype=avatar";
+                return await component.uploadHtml4(file)
+            }
+            
           }
 
         // file upload methods

@@ -50,12 +50,12 @@
           </div>
           <div class="form-inline">
             <label for="period">Period &nbsp;&nbsp;</label>
-            <input type="number" class="form-control" id="period" placeholder="Enter value" v-model.trim="curPackage.period">
+            <input type="number" class="form-control" id="period" placeholder="Enter value" v-model.trim="curPackage.period" @change="getdays">
             <label for="ptype"> &nbsp; Type &nbsp;&nbsp;</label>
-            <select class="form-control" id="ptype" v-model.trim="curPackage.ptype">
+            <select class="form-control" id="ptype" v-model.trim="curPackage.ptype" @change="getdays">
             <option  v-for="slgpr of prlst" :value="slgpr.id">{{slgpr.name}}</option>
             </select>
-           &nbsp;&nbsp; Will expire on {{ curPackage.period * ( (curPackage.ptype==1) ? 1: (curPackage.ptype==2?30:365   ) )  }} days
+           &nbsp;&nbsp; Will expire on {{ validity }} days
           </div>
 
           <div class="form-group">

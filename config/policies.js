@@ -21,5 +21,7 @@ module.exports.policies = {
   'payment/*': true,
   'package/*': true,
   'report/*':true,
-  'files/*':true
+  'files/*':true,
+  'branch/*':true,
+  
 };

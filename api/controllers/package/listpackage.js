@@ -16,6 +16,10 @@ module.exports = {
     per_page : {
       type : "number",
       required : false
+    },
+    bid : {
+      type : "number",
+      required : false
     }
 
   },
@@ -41,9 +45,9 @@ module.exports = {
     };
     try{
       if(!inputs.eid) inputs.eid=0;
-      var SUBS_LIST_SQL = 'call sp_subs_list( )';
+      var SUBS_LIST_SQL = 'call sp_subs_list( $1 )';
        
-      var rawResult = await sails.sendNativeQuery(SUBS_LIST_SQL, [  ]);
+      var rawResult = await sails.sendNativeQuery(SUBS_LIST_SQL, [  inputs.bid ]);
 
       result.data =rawResult.rows[0];
 

@@ -9,6 +9,21 @@
  <!--   -->     
 
  
+ <div class="jumbotron jumbotron-fluid" v-if="userDetails.UserId>0">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+          <img class="rounded float-left img-thumbnail img-responsive mx-auto" style="width: 160px;" :src="userDetails.filename?'/userfiles/avatar/'+userDetails.UserId+'/'+userDetails.UserId+'/'+userDetails.filename:'/userfiles/avatar/avatar.png'"/>
+
+      </div>
+      <div class="col-sm-9">
+
+          <h1 class="display-6">{{userDetails.Name}} - {{userDetails.id}}</h1>
+          <p class="lead">Joined on {{userDetails.JoinDate}}</p>
+      </div>
+    </div>
+  </div>
+</div>
  <div id="table-wrapper" class="ui ">
     <p></p>
     <button class="btn btn-primary float-right" @click="openPaymentAddModel()"> Pay New </button> <br>
@@ -41,29 +56,29 @@
   <ajax-form action="savepayment" :syncing.sync="syncing" :cloud-error.sync="cloudError" :handle-parsing="handleParsingPaymentSaveForm" @submitted="submittedPaymentSaveForm">
     <div class="form-group">
       <label for="ptype">Payment Type</label>
-      <select class="form-control" id="ptype" v-model.trim="curPayment.ptype">
+      <select class="form-control" id="ptype" v-model.trim="curPayment.ptype" @change="updatePackage">
           <option value="" selected disabled hidden>Choose here</option>
       <option  v-for="slgbr of lsttype" :value="slgbr.pid">{{slgbr.Name}}</option>
       </select>
   </div>
   <div class="form-group">
     <label for="package">Package</label>
-    <select class="form-control" id="package" v-model.trim="curPayment.Sid">
-    <option  v-for="slgpack of lstpack" :value="slgpack.Sid">{{slgpack.Name}} - {{humaniseDays(slgpack.NoOfDays)}}</option>
+    <select class="form-control" id="package" v-model.trim="curPayment.pack" v-on:change="updatePackPrice()">
+    <option  v-for="slgpack of lstsubpack"  :value="slgpack">{{slgpack.Name}} - {{humaniseDays(slgpack.NoOfDays) }} - Rs {{slgpack.Amount}}</option>
     </select>
 </div>
 
 <div class="form-group">
-  <label for="PaidAmount">Paied Amount</label>
+  <label for="PaidAmount">Paid Amount</label>
   <input type="text" class="form-control" id="PaidAmount" placeholder="Enter Paid Amount" v-model.trim="curPayment.PaidAmount" focus-first>
 </div>
 <div class="form-group">
   <label for="joindate">Valid from</label>
-  <input type="text" class="form-control" id="joindate" placeholder="Enter Join Date" v-model.trim="curPayment.JoinDate">
+  <input type="text" class="form-control" id="joindate" placeholder="Enter Join Date"  autocomplete="off">
 </div>
 <div class="form-group">
   <label for="ExpireDate">Expired on </label>
-  <input type="text" class="form-control" id="ExpireDate" placeholder="Enter Expire Date" v-model.trim="curPayment.ExpireDate">
+  <input type="text" class="form-control" id="ExpireDate" placeholder="Enter Expire Date"   autocomplete="off">
 </div>
 <div class="form-group">
   <label for="notes">Type Notes</label>
@@ -78,3 +93,11 @@
 
 </div>
 <%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>
+
+<style>
+
+  .jumbotron-fluid {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+</style>

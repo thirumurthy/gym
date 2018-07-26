@@ -47,12 +47,12 @@
 
                     <div class="form-group">
                         <label for="username">Name</label>
-                        <input type="text" class="form-control" id="username" placeholder="Enter Name" v-model.trim="curUser.Name" focus-first>
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                        <input type="text" class="form-control" id="username" placeholder="Enter Name" v-model.trim="curUser.Name" focus-first autocomplete="false">
+                         
                     </div>
                     <div class="form-group">
                         <label for="age">Age</label>
-                        <input type="text" class="form-control" id="age" placeholder="Enter Age" v-model.trim="curUser.Age">
+                        <input type="text" class="form-control" id="age" placeholder="Enter Age" v-model.trim="curUser.Age" autocomplete="false">
                     </div>
                     <div class="form-group">
                         <label for="usrBranch">Branch</label>
@@ -63,7 +63,7 @@
                     </div>
                     <div class="form-group">
                         <label for="joindate">Join Date</label>
-                        <input type="text" class="form-control" id="joindate" placeholder="Enter Join Date" v-model.trim="curUser.JoinDate">
+                        <input type="text" class="form-control" id="joindate" placeholder="Enter Join Date" v-model.trim="curUser.JoinDate" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label for="height">Height</label>

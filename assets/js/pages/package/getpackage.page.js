@@ -12,6 +12,7 @@ parasails.registerPage('getpackage', {
     syncing: false,
  
     cloudError: {},
+    validity : 0,
     formErrors: {},
     lstbranch: [{ bid: "1", Name: "Malumichambatti" }],
     lstpack :[],
@@ -98,7 +99,8 @@ parasails.registerPage('getpackage', {
       this.curPackage.period = 0;
     },
     getdays : function(){
-        return this.curPackage.period * ( (this.curPackage.ptype==1) ? 1: (this.curPackage.ptype==2?30:365   ) ) ;
+        this.validity = this.curPackage.period * ( (this.curPackage.ptype==1) ? 1: (this.curPackage.ptype==2?30:365   ) ) ;
+        return this.validity ;
     },
     closePackageAddModel : function(){
       this.packageAddModalVisible = false;

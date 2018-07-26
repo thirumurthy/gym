@@ -4,13 +4,16 @@ parasails.registerPage('payments', {
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
   data: {
     //…
-    curPayment : {},
+    curPayment : { PaidAmount : 0 },
     formData: { /* … */ },
     // Syncing / loading state
     syncing: false,
  
     cloudError: {},
     formErrors: {},
+    lstpack : [],
+    userDetails : { UserId : 0 },
+    lstsubpack : [],
     lsttype : [{pid:0,Name :"--SELECT--"},{pid : 1,Name : "Fees"},{ pid : 2, Name : "Personal Trainee"},{ pid : 3, Name: "Diet"}],
     paymentAddModalVisible: false,
     moreParams : {userid : 0 },
@@ -83,6 +86,12 @@ parasails.registerPage('payments', {
     // Attach any initial data from the server.
     _.extend(this, SAILS_LOCALS);
     this.moreParams.userid=jutil.getParameterByName("userid");
+    Date.prototype.addDays = function(days) {
+        var date = new Date(this.valueOf());
+        date.setDate(date.getDate() + days);
+        return date;
+    }
+
   },
   mounted: async function() {
     //…
@@ -95,20 +104,74 @@ parasails.registerPage('payments', {
   methods: {
     //…
 
+    // v-if="curPayment.ptype==slgpack.SType"
+    updatePackage : function(){
+        this.lstsubpack = [];
+        for(var i=0;i<this.lstpack.length;i++)
+        {
+            if(this.curPayment.ptype==this.lstpack[i].ptype)
+            this.lstsubpack.push(this.lstpack[i]);
+        }
+    },
+    updateDiffDays : function(){
+        if(!$("#joindate").val())
+        {
+            var curdate = new Date();
+            var formatteddate=  curdate.getDate()+'/'+(curdate.getMonth()+1)+"/"+curdate.getFullYear();
+            $("#joindate").val(formatteddate);
+            $("#joindate").datepicker('setDate',formatteddate);
+        }
+         
+                var parts =$("#joindate").val().split("/")
+                // Please pay attention to the month (parts[1]); JavaScript counts months from 0:
+                // January - 0, February - 1, etc.
+                var mydate = new Date(parts[2], parts[1] - 1, parts[0]); 
+                mydate = mydate.addDays(this.curPayment.pack.NoOfDays);
+
+                $("#ExpireDate").val(mydate.getDate()+'/'+(mydate.getMonth()+1)+"/"+mydate.getFullYear());
+                $("#ExpireDate").datepicker('setDate',mydate);
+    },
+    updatePackPrice : function(){
+         
+        console.log(this.curPayment.pack);
+        this.curPayment.PaidAmount = this.curPayment.pack.Amount;
+        this.curPayment.Sid=this.curPayment.pack.Sid;
+       this.updateDiffDays();
+                 
+               
+                 
+    },
     openPaymentAddModel : function(){
       this.paymentAddModalVisible = true;
       var curdate = (this.curPayment.JoinDate || '');
-             
+      var curExpireDate = (this.curPayment.ExpireDate || '');
+      var _self = this;
             $(function() {
                 $('#joindate').datepicker({
                     // date format
                     format: 'dd/MM/yyyy',
+        
+                    // placeholder text
+                    placeholder: 'Vaild from',
+                    // default date
+                    defaultValue: new Date(),
+                });
+                
+                $("#joindate").on('pick.datepicker', function (event) {
+                    console.log('newDate: ' + event.newDate);
+                    console.log('oldDate: ' + event.oldDate);
+                    _self.updateDiffDays();
+                });
+                $('#ExpireDate').datepicker({
+                    // date format
+                    format: 'dd/MM/yyyy',
 
                     // placeholder text
-                    placeholder: 'Please select Join Date',
+                    placeholder: 'Expired on',
                     // default date
-                    defaultValue: curdate,
+                    defaultValue: curExpireDate,
                 });
+                
             });
 
     },
