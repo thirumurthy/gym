@@ -22,11 +22,7 @@ module.exports = {
     var lstbranch = [];
     try{
        
-      var BRANCH_LIST_SQL = 'call sp_branch_list(  )';
-       
-      var rawResult = await sails.sendNativeQuery(BRANCH_LIST_SQL, [  ]);
-
-      lstbranch =rawResult.rows[0];
+      lstbranch = await sails.helpers.branchlist();
 
   }
   catch(err)
@@ -37,7 +33,9 @@ module.exports = {
     return exits.success(
       {
         cpage : "welcome",
-        lstbranch : lstbranch
+        lstbranch : lstbranch,
+        userType : this.req.session.userType,
+        bid : this.req.session.bid
       }
     );
 

@@ -17,6 +17,14 @@ module.exports = {
     per_page : {
       type : "number",
       required : false
+    },
+    Branch : {
+      type : "string",
+      required : false
+    },
+    filter : {
+      type : "string",
+      required : false
     }
 
   },
@@ -29,29 +37,24 @@ module.exports = {
 
   fn: async function (inputs, exits) {
 
-    var result = {
-      next_page_url : '/api/v1/user/listusers?page=1&per_page=3&sort=name%7Casc',
-      prev_page_url : '/api/v1/user/listusers?page=1&per_page=3&sort=name%7Casc',
-      current_page : 1,
-      from : 1,
-      to : 10,
-      total : 100,
-      last_page : 5,
-      per_page : 10,
+    var result = { 
       data : []
     };
     try{
       if(!inputs.eid) inputs.eid=0;
-      var EXPENSE_SAVE_SQL = 'call sp_getUser( $1, $2 )';
+      var GET_USER_LIST_SQL = 'call sp_getUser( $1, $2, $3, $4, $5 )';
        
-      var rawResult = await sails.sendNativeQuery(EXPENSE_SAVE_SQL, [ inputs.page, inputs.per_page ]);
+      var rawResult = await sails.sendNativeQuery(GET_USER_LIST_SQL, [ inputs.page, inputs.per_page, inputs.Branch, inputs.filter, this.req.session.userId ]);
 
-      result.data =rawResult.rows[0];
+      result = await sails.helpers.formatresp(inputs.page, inputs.per_page,rawResult.rows[0],"user",inputs.filter, inputs.Branch);
+
+      
+      
 
   }
   catch(err)
   {
-
+    console.log(err);
   }
     return exits.success(result);
 

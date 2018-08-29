@@ -19,9 +19,19 @@ module.exports.policies = {
   'deliver-contact-form-message': true,
   'user/*': true,
   'payment/*': true,
-  'package/*': true,
-  'report/*':true,
+  'package/listpackage': true,
+  'package/delpackage': 'is-super-admin',
+  'package/savepackage': 'is-super-admin',
+  
+  'report/*':'is-super-admin',
   'files/*':true,
-  'branch/*':true,
+  
+  'branch/listbranch':true,
+  'branch/deletebranch':'is-super-admin',
+  'branch/savebranch':'is-super-admin',
+  'branch/view-getbranch':'is-super-admin',
+  
+
+  'admin/*' : 'is-super-admin',
   
 };

@@ -9,22 +9,58 @@
 
     <div id="table-wrapper" class="ui ">
         <p></p>
-        <button class="btn btn-primary float-right" @click="openUserAddModel()"> Add New User </button> <br>
-        <h2>User List</h2>
-        <vuetable ref="vuetable" api-url="/api/v1/user/listusers" :fields="fields" :sort-order="sortOrder" :css="css.table" pagination-path="" :per-page="50" @vuetable:pagination-data="onPaginationData" @vuetable:loading="onLoading" @vuetable:loaded="onLoaded">
-            <template slot="actions" scope="props">
-             <div class="table-button-container">
-                 <button class="btn btn-warning btn-sm" @click="editRow(props.rowData)">
-                   <span class="fas fa-edit"></span> Edit</button>&nbsp;&nbsp;
-                 <button class="btn btn-danger btn-sm" @click="deleteRow(props.rowData)">
-                   <span class="glyphicon glyphicon-trash"></span> Delete</button>&nbsp;&nbsp;
-                   <button class="btn btn-success btn-sm" @click="PayNow(props.rowData)">
-                    <span class="glyphicon glyphicon-shopping-cart"></span> Pay</button>&nbsp;&nbsp;
- 
-
-             </div>
-             </template>
-        </vuetable>
+        <div class="row">
+            <ul class="list-inline">
+                <li v-for="slgbr in lstbranch" class="list-inline-item" >
+                    <div class="checkbox checkbox-primary">
+                        <input type="checkbox" :value="slgbr.bid" id="slgbr.bid" v-model="checkedBranch" @click="checkBranch($event)" style="        width: 25px;
+                        height: 25px;
+                        display: inline-block;
+                        vertical-align: -8px;"  > 
+                        <label for="slgbr.bid"> {{slgbr.Name}} </label>
+                    </div>
+                </li>
+                    
+              </ul>
+            <input type="checkbox" class="form-check-input" v-for="slgbr of lstbranch" :value="slgbr.bid">
+        </div>
+        <div class="row">
+          <div class="col-sm-3"><h2>User List</h2></div>
+          <div class="col-sm-5">
+              <div class="row">
+                  <input class="form-control form-control-sm col-sm-8 d-sm-flex" type="text" placeholder="Enter name or id" id="filter" v-model="userfilter" style="margin-right: 1rem" v-on:keyup.enter="searchUser">   
+                  <button type="button" class="btn btn-primary btn-sm col-sm-3 d-sm-flex" @click="searchUser" >Search</button>
+              </div>
+          </div>
+          <div class="col-sm-4">
+              <button class="btn btn-primary float-right" @click="openUserAddModel()"> Add New User </button> <br>
+       
+          </div>
+        </div>
+        
+        
+             
+            
+            
+           
+           
+            <vuetable ref="vuetable" api-url="/api/v1/user/listusers" :fields="fields" :sort-order="sortOrder" :css="css.table" pagination-path="" :per-page="50" :append-params="moreParams" :row-class="onRowClass"  @vuetable:pagination-data="onPaginationData" @vuetable:loading="onLoading" @vuetable:loaded="onLoaded">
+              <template slot="actions" scope="props">
+               <div class="table-button-container">
+                   <button class="btn btn-warning btn-sm" @click="editRow(props.rowData)">
+                     <span class="fas fa-edit"></span> Edit</button>&nbsp;&nbsp;
+                   <button class="btn btn-danger btn-sm" @click="deleteRow(props.rowData)">
+                     <span class="glyphicon glyphicon-trash"></span> Delete</button>&nbsp;&nbsp;
+                     <button class="btn btn-success btn-sm" @click="PayNow(props.rowData)">
+                      <span class="glyphicon glyphicon-shopping-cart"></span> Pay</button>&nbsp;&nbsp;
+   
+  
+               </div>
+               </template>
+          </vuetable>
+           
+         
+        
         <vuetable-pagination ref="pagination" :css="css.pagination" @vuetable-pagination:change-page="onChangePage"></vuetable-pagination>
     </div>
 

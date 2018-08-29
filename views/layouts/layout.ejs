@@ -46,9 +46,14 @@
                         <!-- inser more links here -->
                         <li><a  class='<% if(cpage == "welcome") { %>cd-signin <%}%>' href="/welcome">Users</a></li>
                         <li><a class='<% if(cpage == "payment") { %>cd-signin <%}%>' href="/payments">Payments</a></li>
+                        <% if( session.userType==1) { %>
                         <li><a class='<% if(cpage == "package") { %>cd-signin <%}%>' href="/package">Packages</a></li>
                         <li><a class='<% if(cpage == "branch") { %>cd-signin <%}%>' href="/branch">Branchs</a></li>
+                        <li><a class='<% if(cpage == "admin" ) { %>cd-signin <%}%>' href="/admin/user">Admin Users</a></li>
+
+                        
                         <li><a class='<% if(cpage == "report") { %>cd-signin <%}%>' href="/report">Report</a></li>
+                        <%}%>
                         <li><a class="cd" href="/logout">Logout</a></li>
                         <!-- <li><a class="cd-signup" href="#0">Sign up</a></li> -->
                     </ul>
@@ -198,6 +203,7 @@
                     <script src="/js/pages/account/account-overview.page.js"></script>
                     <script src="/js/pages/account/edit-password.page.js"></script>
                     <script src="/js/pages/account/edit-profile.page.js"></script>
+                    <script src="/js/pages/admin/adminUser.page.js"></script>
                     <script src="/js/pages/branch/getbranch.page.js"></script>
                     <script src="/js/pages/contact.page.js"></script>
                     <script src="/js/pages/dashboard/welcome.page.js"></script>

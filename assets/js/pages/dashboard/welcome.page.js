@@ -42,9 +42,13 @@ parasails.registerPage('welcome', {
         curUser: {},
         cloudError: {},
         formErrors: {},
-        
+        userfilter : "",
+        checkedBranch : [],
         lstbranch: [{ bid: "1", Name: "Malumichambatti" }],
         userAddModalVisible: false,
+        moreParams : {filter : "", Branch:"" },
+        userType : 0,
+        bid : 0,
         fields: [{
                 name: 'id',
                 title: '<span class="orange glyphicon glyphicon-user"></span>Mucle Zone ID',
@@ -109,7 +113,9 @@ parasails.registerPage('welcome', {
     },
     mounted: async function() {
         //…
-
+        if(this.userType==2){
+            this.moreParams.Branch = this.bid;
+        }
 
     },
 
@@ -153,6 +159,19 @@ parasails.registerPage('welcome', {
             window.location.href = "/payments?userid=" + rowData.UserId+"&bid="+rowData.bid;
 
         },
+        onRowClass(dataItem, index) {
+            // put your logic here
+            // to reference selectedTo, use `this.$refs.vuetable.selectedTo`
+            // and return the CSS class name you want
+            // this.$refs.vuetable.selectedTo.indexOf(dataItem.ExpireDays) 
+            
+            return   dataItem.ExpireDays?  (
+            
+            (dataItem.ExpireDays < 15)
+              ? 'table-danger'
+              : (dataItem.ExpireDays <30?'table-warning':'' ) ) :''
+          },
+
         editRow(rowData) {
             this.userAddModalVisible = true;
             this.curUser = rowData;
@@ -221,6 +240,15 @@ parasails.registerPage('welcome', {
             this.userAddModalVisible = false;
             this.$refs.vuetable.refresh();
 
+        },
+        checkBranch: function(eventval){
+            this.moreParams.Branch = this.checkedBranch.toString();
+            this.$refs.vuetable.refresh();
+            
+        },
+        searchUser: function(){
+            this.moreParams.filter = this.userfilter;
+            this.$refs.vuetable.refresh();
         },
         handleParsingUserSaveForm: function() {
 

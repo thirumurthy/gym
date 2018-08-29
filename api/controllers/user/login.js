@@ -39,6 +39,8 @@ module.exports = {
        {
         resp="1";
         this.req.session.userId=rawResult.rows[0][0].UserId;
+        this.req.session.userType = rawResult.rows[0][0].userType;
+        this.req.session.bid =  rawResult.rows[0][0].bid;
        } 
        
 

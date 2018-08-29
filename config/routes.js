@@ -39,6 +39,7 @@ module.exports.routes = {
     'GET /package': { action: 'package/view-getpackage' },
     'GET /report': { action: 'report/view-getreport' },
     'GET /branch': { action: 'branch/view-getbranch' },
+    'GET /admin/user': { action: 'admin/view-admin-user' },
 
     //  ╔═╗╔═╗╦  ╔═╗╔╗╔╔╦╗╔═╗╔═╗╦╔╗╔╔╦╗╔═╗
     //  ╠═╣╠═╝║  ║╣ ║║║ ║║╠═╝║ ║║║║║ ║ ╚═╗
@@ -67,6 +68,9 @@ module.exports.routes = {
     'POST /api/v1/payment/savepayment': { action: 'payment/savepayment' },
     'GET /api/v1/payment/delpayment': { action: 'payment/delpayment' },
     'GET /api/v1/payment/listpayment': { action: 'payment/listpayment' },
+    'GET /api/v1/admin/listadmin': { action: 'admin/listadmin' },
+    'GET /api/v1/admin/deleteadmin': { action: 'admin/deleteadmin' },
+    'POST /api/v1/admin/saveadmin': { action: 'admin/saveadmin' },
 
     // file upload
     'POST /api/v1/files/uploadfile': { action: 'files/uploadfile' },

@@ -1,0 +1,202 @@
+<div id="admin-user" v-cloak>
+  <template>
+    <div>
+      <vue-snotify></vue-snotify>
+    </div>
+  </template>
+
+    <div id="table-wrapper" class="ui ">
+
+        <div class="row">
+            <div class="col-sm-5"><h2>Admin User List</h2></div>
+            <div class="col-sm-3"></div>
+            <div class="col-sm-4">
+                <button class="btn btn-primary float-right" @click="openUserAddModel()"> Add New User </button> <br>
+          </div>
+        </div>
+
+        <vuetable ref="vuetable" api-url="/api/v1/admin/listadmin" :fields="fields" :sort-order="sortOrder" :css="css.table" pagination-path="" :per-page="50" :append-params="moreParams"  @vuetable:pagination-data="onPaginationData" @vuetable:loading="onLoading" @vuetable:loaded="onLoaded">
+          <template slot="actions" scope="props">
+           <div class="table-button-container">
+               <button class="btn btn-warning btn-sm" @click="editRow(props.rowData)">
+                 <span class="fas fa-edit"></span> Edit</button>&nbsp;&nbsp;
+               <button class="btn btn-danger btn-sm" @click="deleteRow(props.rowData)">
+                 <span class="glyphicon glyphicon-trash"></span> Delete</button>&nbsp;&nbsp;
+                  
+
+           </div>
+           </template>
+      </vuetable>
+
+
+      <vuetable-pagination ref="pagination" :css="css.pagination" @vuetable-pagination:change-page="onChangePage"></vuetable-pagination>
+    </div>
+
+
+ <!-- model popup  -->
+ <modal v-if="userAddModalVisible" @close="closeUserAddModel()" v-cloak>
+    <div class="modal-header">
+        <h5 class="modal-title">Add New User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span>&times;</span>
+      </button>
+    </div>
+    <!-- model body -->
+    <div class="row">
+        <div class="col-sm-8">
+            <ajax-form action="saveadmin" :syncing.sync="syncing" :cloud-error.sync="cloudError" :handle-parsing="handleParsingUserSaveForm" @submitted="submittedUserSaveForm">
+
+                <div class="form-group">
+                    <label for="admin_User">Name</label>
+                    <input type="text" class="form-control" id="admin_User" name="admin_User" placeholder="Enter Name" v-model.trim="curUser.Name" focus-first autocomplete="off">
+                     
+                </div>
+                <div class="form-group">
+                  <label for="admin_Username">User Name</label>
+                  <input type="text" class="form-control" id="admin_Username" name="admin_Username" v-model.trim="curUser.Username" autocomplete="off">
+                   
+              </div>
+
+                <div class="form-group">
+                  <label for="admin_password">Password</label>
+                  <input type="password" class="form-control" id="admin_password" name="admin_password" v-model.trim="curUser.password" autocomplete="off">
+                   
+              </div>
+
+              <div class="form-group">
+                <label for="usrBranch">User Type</label>
+                <select class="form-control" id="usrBranch" v-model.trim="curUser.userType">
+                   <option  v-for="slgrl of lstRoles" :value="slgrl.rid">{{slgrl.RoleName}}</option>
+        
+                </select>
+            </div>
+
+                <div class="form-group">
+                    <label for="usrBranch">Branch</label>
+                    <select class="form-control" id="usrBranch" v-model.trim="curUser.bid">
+                       <option  v-for="slgbr of lstbranch" :value="slgbr.bid">{{slgbr.Name}}</option>
+            
+                    </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="phone">Phone</label>
+                  <input type="text" class="form-control" id="phone" v-model.trim="curUser.phone" autocomplete="off">
+                   
+              </div>
+
+              <div class="checkbox checkbox-primary">
+                <input type="checkbox" value="0" id="isLock" v-model="curUser.isLock"  style="        width: 25px;
+                height: 25px;
+                display: inline-block;
+                vertical-align: -8px;"> 
+                <label for="isLock"> Lock User </label>
+            </div>
+
+                <ajax-button type="submit" :syncing="syncing" class="btn-dark btn-lg btn-block">Submit</ajax-button>
+
+
+              </ajax-form>
+            </div>
+            <div class="col-sm-4">
+                <template>
+                  <div class="example-avatar">
+                    <div v-show="$refs.upload && $refs.upload.dropActive" class="drop-active">
+                      <h3>Drop files to upload</h3>
+                    </div>
+                    <div class="avatar-upload"  v-show="!edit">
+                      <div class="text-center p-2">
+                        <label for="avatar">
+                          <img :src="files.length ? files[0].url : 'https://www.gravatar.com/avatar/default?s=200&r=pg&d=mm'"  class="rounded-circle" />
+                          <h4 class="pt-2">or<br/>Drop files anywhere to upload</h4>
+                        </label>
+                      </div>
+            <div class="text-center p-2">
+                <file-upload
+                  extensions="gif,jpg,jpeg,png,webp"
+                  accept="image/png,image/gif,image/jpeg,image/webp"
+                  name="avatar"
+                  class="btn btn-primary"
+                  :custom-action="customAction"
+                  :drop="!edit"
+                  v-model="files"
+                  @input-filter="inputFilter"
+                  @input-file="inputFile"
+                  ref="upload">
+                  Upload avatar
+                </file-upload>
+              </div>
+            </div>
+              
+            <div class="avatar-edit" v-show="files.length && edit">
+              <div class="avatar-edit-image" v-if="files.length">
+                <img ref="editImage" :src="files[0].url" />
+              </div>
+              <div class="text-center p-4">
+                <button type="button" class="btn btn-secondary" @click.prevent="$refs.upload.clear">Cancel</button>
+                <button type="submit" class="btn btn-primary" @click.prevent="editSave">Save</button>
+              </div>
+            </div>
+            <div class="pt-5"> <!--
+              Source code: <a href="https://github.com/lian-yue/vue-upload-component/blob/master/docs/views/examples/Avatar.vue">/docs/views/examples/Avatar.vue</a> -->
+            </div>
+          </div>
+        </template>
+      </div>
+    </div>  <!-- model body ends-->
+
+
+
+
+
+</modal>
+
+
+<!-- model popup  -->
+
+
+
+
+
+</div>
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>
+
+
+
+<style>
+    .example-avatar .avatar-upload .rounded-circle {
+      width: 200px;
+      height: 200px;
+    }
+    .example-avatar .text-center .btn {
+      margin: 0 .5rem
+    }
+    .example-avatar .avatar-edit-image {
+      max-width: 100%
+    }
+    .example-avatar .drop-active {
+      top: 0;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      position: fixed;
+      z-index: 9999;
+      opacity: .6;
+      text-align: center;
+      background: #000;
+    }
+    .example-avatar .drop-active h3 {
+      margin: -.5em 0 0;
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      -webkit-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      transform: translateY(-50%);
+      font-size: 40px;
+      color: #fff;
+      padding: 0;
+    }
+    </style>
+  
