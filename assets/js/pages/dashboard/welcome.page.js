@@ -74,7 +74,11 @@ parasails.registerPage('welcome', {
                 title: 'Joined Date',
                 sortField: 'JoinDate'
             },
-            '__slot:actions'
+            {
+                name: '__slot:actions',
+                title: 'Action'
+            },
+            
         ],
         sortOrder: [
             { field: 'name', direction: 'asc' }
@@ -113,10 +117,13 @@ parasails.registerPage('welcome', {
     },
     mounted: async function() {
         //…
-        if(this.userType==2){
-            this.moreParams.Branch = this.bid;
+        if(this.userType>1){
+            setTimeout(() => {
+                $('#bid'+this.bid).prop('checked', true);
+            }, 1000);
+            
         }
-
+        
     },
 
     //  ╦╔╗╔╔╦╗╔═╗╦═╗╔═╗╔═╗╔╦╗╦╔═╗╔╗╔╔═╗

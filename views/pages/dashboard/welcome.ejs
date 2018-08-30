@@ -13,10 +13,10 @@
             <ul class="list-inline">
                 <li v-for="slgbr in lstbranch" class="list-inline-item" >
                     <div class="checkbox checkbox-primary">
-                        <input type="checkbox" :value="slgbr.bid" id="slgbr.bid" v-model="checkedBranch" @click="checkBranch($event)" style="        width: 25px;
+                        <input type="checkbox" :value="slgbr.bid" :id="'bid'+slgbr.bid" v-model="checkedBranch" @click="checkBranch($event)" style="        width: 25px;
                         height: 25px;
                         display: inline-block;
-                        vertical-align: -8px;"  > 
+                        vertical-align: -8px;" checked="true" > 
                         <label for="slgbr.bid"> {{slgbr.Name}} </label>
                     </div>
                 </li>
@@ -46,7 +46,7 @@
            
             <vuetable ref="vuetable" api-url="/api/v1/user/listusers" :fields="fields" :sort-order="sortOrder" :css="css.table" pagination-path="" :per-page="50" :append-params="moreParams" :row-class="onRowClass"  @vuetable:pagination-data="onPaginationData" @vuetable:loading="onLoading" @vuetable:loaded="onLoaded">
               <template slot="actions" scope="props">
-               <div class="table-button-container">
+               <div class="table-button-container" v-if="(userType>1?  props.rowData.bid==bid : true)">
                    <button class="btn btn-warning btn-sm" @click="editRow(props.rowData)">
                      <span class="fas fa-edit"></span> Edit</button>&nbsp;&nbsp;
                    <button class="btn btn-danger btn-sm" @click="deleteRow(props.rowData)">
