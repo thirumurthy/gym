@@ -1,0 +1,25 @@
+<div id="query-import" v-cloak>
+
+  <div class="container">
+  <h4>SQL File Importer</h4>
+    <ajax-form action="processQuery" :syncing.sync="syncing" :cloud-error.sync="cloudError" @submitted="submittedForm()" :handle-parsing="handleParsingForm">
+
+      <div class="form-group">
+        <label for="filepath">Choose File to import</label>
+        <select class="custom-select" id="filepath" v-model="formData.filepath" focus-first>
+          <option selected value="">Choose...</option>
+          <option :value="slgfile" v-for="slgfile in FileList">{{slgfile}}</option>
+        </select>
+      </div>
+      <br/>
+      
+
+      <p class="text-success" v-if="cloudError==='200'"><small>Success</small></p>
+      <p class="text-danger" v-else-if="cloudError==='201'"><small>Failed.</small></p>
+      <ajax-button type="submit" :syncing="syncing" class="btn btn-info">Submit</ajax-button>
+  </ajax-form>
+</div>
+
+
+</div>
+<%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>

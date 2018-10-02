@@ -40,6 +40,9 @@ module.exports.routes = {
     'GET /report': { action: 'report/view-getreport' },
     'GET /branch': { action: 'branch/view-getbranch' },
     'GET /admin/user': { action: 'admin/view-admin-user' },
+    'GET /admin/queryImport': { action: 'admin/view-query-import' },
+    'GET /template/index': { action: 'template/view-index' },
+
 
     //  ╔═╗╔═╗╦  ╔═╗╔╗╔╔╦╗╔═╗╔═╗╦╔╗╔╔╦╗╔═╗
     //  ╠═╣╠═╝║  ║╣ ║║║ ║║╠═╝║ ║║║║║ ║ ╚═╗
@@ -74,6 +77,7 @@ module.exports.routes = {
 
     // file upload
     'POST /api/v1/files/uploadfile': { action: 'files/uploadfile' },
+    'POST /api/v1/admin/processquery': { action: 'admin/process-query' },
 
     //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗
     //  ║║║║╣ ╠╩╗╠═╣║ ║║ ║╠╩╗╚═╗
