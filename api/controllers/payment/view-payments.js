@@ -48,7 +48,7 @@ var result = [], userobj= { UserId : 0 };
     catch(err){
 console.log(err);
     }
-    this.res.locals.layout = 'layouts/layout';
+    this.res.locals.layout = 'layouts/mlayout';
     return exits.success({
       cpage : "payment",
       lstpack : result.data,

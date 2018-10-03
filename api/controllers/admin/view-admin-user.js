@@ -35,7 +35,7 @@ module.exports = {
     console.log(err);
   }
   
-    this.res.locals.layout = 'layouts/layout';
+  this.res.locals.layout = 'layouts/mlayout';
     return exits.success(
       {
         cpage : "admin",

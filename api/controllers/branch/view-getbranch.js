@@ -27,7 +27,7 @@ module.exports = {
   fn: async function (inputs, exits) {
     
 
-    this.res.locals.layout = 'layouts/layout';
+    this.res.locals.layout = 'layouts/mlayout';
     return exits.success(
       {
         cpage : "branch",

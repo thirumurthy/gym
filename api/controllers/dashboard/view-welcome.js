@@ -29,6 +29,7 @@ module.exports = {
   {
     console.log(err);
   }
+  this.res.locals.layout = 'layouts/mlayout';
 
     return exits.success(
       {
