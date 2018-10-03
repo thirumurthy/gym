@@ -14,7 +14,7 @@ module.exports.routes = {
     //  ╦ ╦╔═╗╔╗ ╔═╗╔═╗╔═╗╔═╗╔═╗
     //  ║║║║╣ ╠╩╗╠═╝╠═╣║ ╦║╣ ╚═╗
     //  ╚╩╝╚═╝╚═╝╩  ╩ ╩╚═╝╚═╝╚═╝
-    'GET /': { action: 'view-homepage-or-redirect' },
+    'GET /oldroot': { action: 'view-homepage-or-redirect' },
     'GET /welcome': { action: 'dashboard/view-welcome' },
 
     'GET /faq': { view: 'pages/faq' },
@@ -41,7 +41,7 @@ module.exports.routes = {
     'GET /branch': { action: 'branch/view-getbranch' },
     'GET /admin/user': { action: 'admin/view-admin-user' },
     'GET /admin/queryImport': { action: 'admin/view-query-import' },
-    'GET /template/index': { action: 'template/view-index' },
+    'GET /': { action: 'template/view-index' },
 
 
     //  ╔═╗╔═╗╦  ╔═╗╔╗╔╔╦╗╔═╗╔═╗╦╔╗╔╔╦╗╔═╗

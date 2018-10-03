@@ -33,5 +33,5 @@ module.exports.policies = {
   
 
   'admin/*' : 'is-super-admin',
-  
+  'template/*': true
 };
