@@ -29,6 +29,7 @@ module.exports = {
     this.res.locals.layout = 'layouts/mlayout';
     return exits.success({
       cpage : "report",
+      userType : this.req.session.userType,
     });
 
   }

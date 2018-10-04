@@ -31,6 +31,7 @@ module.exports = {
     return exits.success(
       {
         cpage : "branch",
+        userType : this.req.session.userType,
       }
     );
 

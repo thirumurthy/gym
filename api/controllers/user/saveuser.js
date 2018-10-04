@@ -49,6 +49,10 @@ module.exports = {
       type : "string",
       required : false
     },
+    gymnumber : {
+      type : "string",
+      required : false
+    }
 
   },
 
@@ -64,9 +68,9 @@ module.exports = {
 
     try{
       if(!inputs.UserId) inputs.UserId=0;
-      var USER_SAVE_SQL = 'call sp_saveUser( $1, $2 , $3, $4, $5, $6, $7, $8, $9, $10, $11)';
+      var USER_SAVE_SQL = 'call sp_saveUser( $1, $2 , $3, $4, $5, $6, $7, $8, $9, $10, $11, $12 )';
       
-      var rawResult = await sails.sendNativeQuery(USER_SAVE_SQL, [ inputs.UserId, inputs.Name, inputs.EmailId, inputs.DOB, inputs.Address, inputs.bid, inputs.phone, inputs.JoinDate, inputs.height, inputs.weight, this.req.session.userId ]);
+      var rawResult = await sails.sendNativeQuery(USER_SAVE_SQL, [ inputs.UserId, inputs.Name, inputs.EmailId||'', inputs.DOB||'', inputs.Address||'', inputs.bid, inputs.phone||'', inputs.JoinDate||'', inputs.height, inputs.weight,inputs.gymnumber , this.req.session.userId]);
 
       resp =rawResult.rows[0][0];
 

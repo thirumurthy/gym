@@ -30,7 +30,7 @@
     <h2>Payment Details</h2>
     <vuetable ref="vuetable" api-url="/api/v1/payment/listpayment" :fields="fields" :sort-order="sortOrder"  :append-params="moreParams" :css="css.table" pagination-path="" :per-page="50" @vuetable:pagination-data="onPaginationData" @vuetable:loading="onLoading" @vuetable:loaded="onLoaded">
         <template slot="actions" scope="props">
-  <div class="table-button-container">
+  <div class="table-button-container" v-if="(userType>1?  props.rowData.bid==bid : true)">
       <button class="btn btn-warning btn-sm" @click="editRow(props.rowData)">
         <span class="fas fa-edit"></span> Edit</button>&nbsp;&nbsp;
       <button class="btn btn-danger btn-sm" @click="deleteRow(props.rowData)">

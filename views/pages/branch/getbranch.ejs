@@ -8,11 +8,11 @@
 
     <div id="table-wrapper" class="ui ">
         <p></p>
-        <button class="btn btn-primary float-right" @click="openBranchAddModel()"> Add New Branch </button> <br>
+        <button class="btn btn-primary float-right" @click="openBranchAddModel()" v-if="userType==1"> Add New Branch </button> <br>
         <h2>Branch List</h2>
         <vuetable ref="vuetable" api-url="/api/v1/branch/listbranch" :fields="fields" :sort-order="sortOrder" :css="css.table" pagination-path="" :per-page="50" @vuetable:pagination-data="onPaginationData" @vuetable:loading="onLoading" @vuetable:loaded="onLoaded">
             <template slot="actions" scope="props">
-      <div class="table-button-container">
+      <div class="table-button-container"  v-if="userType==1">
           <button class="btn btn-warning btn-sm" @click="editRow(props.rowData)">
             <span class="fas fa-edit"></span> Edit</button>&nbsp;&nbsp;
           <button class="btn btn-danger btn-sm" @click="deleteRow(props.rowData)">

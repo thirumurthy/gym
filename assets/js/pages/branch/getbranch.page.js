@@ -13,6 +13,7 @@ parasails.registerPage('getbranch', {
         curBranch: {},
         formErrors: {},
         cloudError: {},
+        userType : 0,
         // Syncing / loading state
         syncing: false,
         fields: [{

@@ -29,7 +29,7 @@ module.exports.policies = {
   'branch/listbranch':true,
   'branch/deletebranch':'is-super-admin',
   'branch/savebranch':'is-super-admin',
-  'branch/view-getbranch':'is-super-admin',
+  'branch/view-getbranch':true,
   
 
   'admin/*' : 'is-super-admin',

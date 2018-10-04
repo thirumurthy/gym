@@ -12,6 +12,7 @@ parasails.registerPage('payments', {
     cloudError: {},
     formErrors: {},
     lstpack : [],
+    userType : 0,
     userDetails : { UserId : 0 },
     lstsubpack : [],
     lsttype : [{pid:0,Name :"--SELECT--"},{pid : 1,Name : "Fees"},{ pid : 2, Name : "Personal Trainee"},{ pid : 3, Name: "Diet"}],

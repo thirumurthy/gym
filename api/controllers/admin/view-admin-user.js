@@ -39,7 +39,8 @@ module.exports = {
     return exits.success(
       {
         cpage : "admin",
-        lstbranch : lstbranch
+        lstbranch : lstbranch,
+        userType : this.req.session.userType,
       }
     );
 

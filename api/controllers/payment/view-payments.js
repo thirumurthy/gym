@@ -52,7 +52,8 @@ console.log(err);
     return exits.success({
       cpage : "payment",
       lstpack : result.data,
-      userDetails : userobj
+      userDetails : userobj,
+      userType : this.req.session.userType,
     });
 
   }

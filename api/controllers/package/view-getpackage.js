@@ -35,7 +35,8 @@ module.exports = {
     
     return exits.success({
       cpage : "package",
-      lstbranch : lstdata.data 
+      lstbranch : lstdata.data ,
+      userType : this.req.session.userType,
     });
 
   }
