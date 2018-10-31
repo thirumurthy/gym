@@ -8,7 +8,10 @@ module.exports = {
 
 
   inputs: {
-
+    UserSid : {
+      type : "number",
+      required : false
+    },
     UserId : {
       type : "number",
       required : true
@@ -34,13 +37,17 @@ module.exports = {
       type : "number",
       required : true
     },
+    BalanceAmount :{
+      type:"number",
+      required : true
+    },
     PaymentStatus : {
       type : "number",
       required : true
     },
     Notes : {
       type : "string",
-      required : true
+      required : false
     }
 
   },
@@ -57,9 +64,9 @@ module.exports = {
 
     try{
        
-      var PAY_SAVE_SQL = 'call sp_user_subs_pay( $1, $2 , $3, $4, $5, $6, $7, $8, $9 )';
+      var PAY_SAVE_SQL = 'call sp_user_subs_pay( $1, $2 , $3, $4, $5, $6, $7, $8, $9, $10, $11 )';
       
-      var rawResult = await sails.sendNativeQuery(PAY_SAVE_SQL, [ inputs.UserId, inputs.Sid, inputs.JoinDate, inputs.ExpireDate, inputs.SType, inputs.PaidAmount, inputs.PaymentStatus, this.req.session.userId , inputs.Notes ]);
+      var rawResult = await sails.sendNativeQuery(PAY_SAVE_SQL, [ inputs.UserSid||0, inputs.UserId, inputs.Sid, inputs.JoinDate, inputs.ExpireDate, inputs.SType, inputs.PaidAmount, inputs.PaymentStatus, this.req.session.userId , inputs.Notes||'', inputs.BalanceAmount ]);
 
       resp =rawResult.rows[0][0];
 

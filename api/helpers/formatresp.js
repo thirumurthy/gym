@@ -35,7 +35,11 @@ module.exports = {
      Branch : {
        type : "string",
        required : false
-     }
+     },
+     tabselection : {
+      type : "number",
+      required : false
+    }
 
   },
 
@@ -69,12 +73,12 @@ module.exports = {
         result.to = result .from + result.per_page ;
         switch (inputs.type){
           case "user":
-            result.next_page_url = "/api/v1/user/listusers?page="+(result.current_page+1)+"&per_page="+result.per_page+"&filter="+inputs.filter+"&Branch="+inputs.Branch;
-            result.prev_page_url = "/api/v1/user/listusers?page="+(result.current_page-1)+"&per_page="+result.per_page+"&filter="+inputs.filter+"&Branch="+inputs.Branch;
+            result.next_page_url = "/api/v1/user/listusers?page="+(result.current_page+1)+"&per_page="+result.per_page+"&filter="+inputs.filter+"&Branch="+inputs.Branch+"&tabselection="+inputs.tabselection||1;
+            result.prev_page_url = "/api/v1/user/listusers?page="+(result.current_page-1)+"&per_page="+result.per_page+"&filter="+inputs.filter+"&Branch="+inputs.Branch+"&tabselection="+inputs.tabselection||1;
           break;
           case "admin":
-            result.next_page_url = "/api/v1/admin/listadmin?page="+(result.current_page+1)+"&per_page="+result.per_page+"&filter="+inputs.filter+"&Branch="+inputs.Branch;
-            result.prev_page_url = "/api/v1/admin/listadmin?page="+(result.current_page-1)+"&per_page="+result.per_page+"&filter="+inputs.filter+"&Branch="+inputs.Branch;
+            result.next_page_url = "/api/v1/admin/listadmin?page="+(result.current_page+1)+"&per_page="+result.per_page+"&filter="+inputs.filter+"&Branch="+inputs.Branch+"&tabselection="+inputs.tabselection||1;
+            result.prev_page_url = "/api/v1/admin/listadmin?page="+(result.current_page-1)+"&per_page="+result.per_page+"&filter="+inputs.filter+"&Branch="+inputs.Branch+"&tabselection="+inputs.tabselection||1;
           break;
         }
 

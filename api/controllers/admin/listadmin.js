@@ -46,7 +46,7 @@ module.exports = {
        
       var rawResult = await sails.sendNativeQuery(ADMIN_LIST_SQL, [ inputs.page, inputs.per_page, inputs.Branch, inputs.filter ]);
  
-      result = await sails.helpers.formatresp(inputs.page, inputs.per_page,rawResult.rows[0],"admin",inputs.filter, inputs.Branch);
+      result = await sails.helpers.formatresp(inputs.page, inputs.per_page,rawResult.rows[0],"admin",inputs.filter, inputs.Branch, 1);
 
   }
   catch(err)

@@ -46,7 +46,7 @@ parasails.registerPage('welcome', {
         checkedBranch : [],
         lstbranch: [{ bid: "1", Name: "Malumichambatti" }],
         userAddModalVisible: false,
-        moreParams : {filter : "", Branch:"" },
+        moreParams : {filter : "", Branch:"", tabselection:"1" },
         userType : 0,
         bid : 0,
         fields: [{
@@ -171,6 +171,10 @@ parasails.registerPage('welcome', {
             window.location.href = "/payments?userid=" + rowData.UserId+"&bid="+rowData.bid;
 
         },
+        userDisplayMode(tabselection){
+            this.moreParams.tabselection = tabselection;
+            this.$refs.vuetable.refresh();
+        },  
         onRowClass(dataItem, index) {
             // put your logic here
             // to reference selectedTo, use `this.$refs.vuetable.selectedTo`

@@ -25,6 +25,10 @@ module.exports = {
     filter : {
       type : "string",
       required : false
+    },
+    tabselection : {
+      type : "number",
+      required : false
     }
 
   },
@@ -42,16 +46,16 @@ module.exports = {
     };
     try{
       if(!inputs.eid) inputs.eid=0;
-      var GET_USER_LIST_SQL = 'call sp_getUser( $1, $2, $3, $4, $5 )';
+      var GET_USER_LIST_SQL = 'call sp_getUser( $1, $2, $3, $4, $5, $6 )';
        
       if(!inputs.Branch && this.req.session.userType>1)
       {
         inputs.Branch =  this.req.session.bid ;
       }
 
-      var rawResult = await sails.sendNativeQuery(GET_USER_LIST_SQL, [ inputs.page, inputs.per_page, inputs.Branch, inputs.filter, this.req.session.userId ]);
+      var rawResult = await sails.sendNativeQuery(GET_USER_LIST_SQL, [ inputs.page, inputs.per_page, inputs.Branch, inputs.filter, this.req.session.userId, inputs.tabselection||1 ]);
 
-      result = await sails.helpers.formatresp(inputs.page, inputs.per_page,rawResult.rows[0],"user",inputs.filter, inputs.Branch);
+      result = await sails.helpers.formatresp(inputs.page, inputs.per_page,rawResult.rows[0],"user",inputs.filter, inputs.Branch, inputs.tabselection);
 
       
       

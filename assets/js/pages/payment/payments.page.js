@@ -4,7 +4,7 @@ parasails.registerPage('payments', {
   //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
   data: {
     //…
-    curPayment : { PaidAmount : 0 },
+    curPayment : { PaidAmount : 0 , UserSid : 0},
     formData: { /* … */ },
     // Syncing / loading state
     syncing: false,
@@ -110,9 +110,17 @@ parasails.registerPage('payments', {
         this.lstsubpack = [];
         for(var i=0;i<this.lstpack.length;i++)
         {
-            if(this.curPayment.ptype==this.lstpack[i].ptype)
+            if(this.curPayment.ptype==this.lstpack[i].SType)
             this.lstsubpack.push(this.lstpack[i]);
         }
+    },
+    getUpdatedDate : function(curdate, days){
+                var parts =curdate.split("/")
+                // Please pay attention to the month (parts[1]); JavaScript counts months from 0:
+                // January - 0, February - 1, etc.
+                var mydate = new Date(parts[2], parts[1] - 1, parts[0]); 
+                return mydate.addDays(days);
+
     },
     updateDiffDays : function(){
         if(!$("#joindate").val())
@@ -157,12 +165,6 @@ parasails.registerPage('payments', {
                     // default date
                     defaultValue: new Date(),
                 });
-                
-                $("#joindate").on('pick.datepicker', function (event) {
-                    console.log('newDate: ' + event.newDate);
-                    console.log('oldDate: ' + event.oldDate);
-                    _self.updateDiffDays();
-                });
                 $('#ExpireDate').datepicker({
                     // date format
                     format: 'dd/MM/yyyy',
@@ -172,6 +174,14 @@ parasails.registerPage('payments', {
                     // default date
                     defaultValue: curExpireDate,
                 });
+                $("#joindate").on('pick.datepicker', function (event) {
+                    console.log('newDate: ' + event.newDate);
+                    console.log('oldDate: ' + event.oldDate);
+                    $("#ExpireDate").datepicker('setDate', _self.getUpdatedDate(event.newDate, _self.curPayment.pack.NoOfDays)  );
+                    
+                    //_self.updateDiffDays();
+                });
+                
                 
             });
 
@@ -182,6 +192,7 @@ parasails.registerPage('payments', {
 
     handleParsingPaymentSaveForm : function(){
         var _self = this;
+            _self.curPayment.UserSid = (_self.curPayment.UserSid||0);
             this.curPayment.JoinDate = $("#joindate").val();
             this.curPayment.UserId = jutil.getParameterByName("userid"); 
             this.curPayment.ExpireDate =  $("#ExpireDate").val();
