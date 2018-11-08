@@ -61,11 +61,15 @@
       <option  v-for="slgbr of lsttype" :value="slgbr.pid">{{slgbr.Name}}</option>
       </select>
   </div>
-  <div class="form-group">
+  <div class="form-group" v-if="curPayment.UserSid==false || curPayment.UserSid==0">
     <label for="package">Package</label>
     <select class="form-control" id="package" v-model.trim="curPayment.pack" v-on:change="updatePackPrice()">
     <option  v-for="slgpack of lstsubpack"  :value="slgpack">{{slgpack.Name}} - {{humaniseDays(slgpack.NoOfDays) }} - Rs {{slgpack.Amount}}</option>
     </select>
+</div>
+<div class="form-group" v-else>
+  <label>Package</label>
+  <p>{{curPayment.Name}} - {{humaniseDays(curPayment.NoOfDays) }} - Rs {{curPayment.Amount}}</p>
 </div>
 
 <div class="form-group">
@@ -75,7 +79,7 @@
 
 <div class="form-group">
   <label for="BalanceAmount">Balance Amount</label>
-  <input type="text" class="form-control" id="BalanceAmount" placeholder="Enter Balance Amount" v-model.trim="curPayment.BalanceAmount" focus-first>
+  <input type="text" class="form-control" id="BalanceAmount" placeholder="Enter Balance Amount" v-model.trim="curPayment.BalanceAmount" >
 </div>
 
 <div class="form-group">

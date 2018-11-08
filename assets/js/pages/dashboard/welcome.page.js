@@ -80,6 +80,11 @@ parasails.registerPage('welcome', {
                 sortField: 'JoinDate'
             },
             {
+                name: 'BalanceAmount',
+                title: 'Balance Amount',
+                sortField: 'BalanceAmount'
+            },
+            {
                 name: '__slot:actions',
                 title: 'Action'
             },
