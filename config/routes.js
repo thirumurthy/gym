@@ -62,6 +62,7 @@ module.exports.routes = {
     'POST /api/v1/user/login': { action: 'user/login' },
     'GET /api/v1/user/listusers': { action: 'user/listusers' },
     'POST /api/v1/user/saveuser': { action: 'user/saveuser' },
+    'GET /api/v1/user/del-user': { action: 'user/del-user' },
     'GET /api/v1/branch/listbranch': { action: 'branch/listbranch' },
     'POST /api/v1/branch/savebranch': { action: 'branch/savebranch' },
     'GET /api/v1/branch/deletebranch': { action: 'branch/deletebranch' },

@@ -131,9 +131,10 @@
 
                 </ajax-form>
             </div>
-            <div class="col-sm-4">
+            <div class="col-sm-4 overlay">
               <template>
-                <div class="example-avatar">
+                
+                <div class="example-avatar" v-if="curUser.UserId>0">
                   <div v-show="$refs.upload && $refs.upload.dropActive" class="drop-active">
                     <h3>Drop files to upload</h3>
                   </div>

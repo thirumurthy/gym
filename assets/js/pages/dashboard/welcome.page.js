@@ -70,9 +70,9 @@ parasails.registerPage('welcome', {
                 sortField:'bName'
             },
             {
-                name: 'ExpireDays',
-                title: "Expire In",
-                sortField: 'ExpireDays'
+                name: 'PlanName',
+                title : 'Plan Name',
+                sortField:'PlanName'
             },
             {
                 name: 'JoinDate',
@@ -80,9 +80,26 @@ parasails.registerPage('welcome', {
                 sortField: 'JoinDate'
             },
             {
+                name: 'ExpireDate',
+                title: 'Expire Date',
+                sortField: 'ExpireDate'
+            },
+
+            {
+                name: 'ExpireDays',
+                title: "Expire In",
+                sortField: 'ExpireDays'
+            },
+            
+            {
                 name: 'BalanceAmount',
                 title: 'Balance Amount',
                 sortField: 'BalanceAmount'
+            },
+            {
+                name: 'DueDate',
+                title: 'Due Date',
+                sortField: 'DueDate'
             },
             {
                 name: '__slot:actions',
@@ -178,8 +195,28 @@ parasails.registerPage('welcome', {
         },
         userDisplayMode(tabselection){
             this.moreParams.tabselection = tabselection;
+           // this.setDisplayFields() ;
             this.$refs.vuetable.refresh();
         },  
+       /*  setDisplayFields() {
+            var i,resp=false;
+            for (i = 0; i < this.fields.length; i++) {
+                if (this.fields[i].name == "DueDate") {
+                    if(this.moreParams.tabselection==2){
+                        this.fields.splice(i,1);
+                    }
+                    resp= true;
+                }
+            }
+        
+            if( resp==false && this.moreParams.tabselection==1){
+                this.fields.splice(10, 0,  {
+                    name: 'DueDate',
+                    title: 'Due Date',
+                    sortField: 'DueDate'
+                });
+            }
+        }, */
         onRowClass(dataItem, index) {
             // put your logic here
             // to reference selectedTo, use `this.$refs.vuetable.selectedTo`
@@ -212,12 +249,39 @@ parasails.registerPage('welcome', {
             //alert("You clicked edit on"+ JSON.stringify(rowData))
         },
         deleteRow(rowData) {
+            var UserId= rowData.UserId||0;
             this.$snotify.confirm('Are you sure want to delete this user?', 'Delete User', {
                 timeout: 0,
                 closeOnClick: false,
                 pauseOnHover: true,
                 buttons: [
-                    { text: 'Yes', action: () => console.log('Clicked: Yes'), bold: false },
+                    {
+                        text: 'Yes', action: (toast) => {
+                            console.log('Clicked: Yes');
+                            this.$snotify.remove(toast.id);
+                            var route = "/api/v1/user/del-user?userid=" + UserId;
+                            $.get(route).then((response) => {
+                                if (response.scode == 200) {
+
+                                    this.$snotify.success('The User has been deleted successfully..!', 'Delete User', {
+                                        timeout: 2000,
+                                        showProgressBar: false,
+                                        closeOnClick: false,
+                                        pauseOnHover: true
+                                    });
+                                    this.$refs.vuetable.refresh();
+                                } else {
+                                    this.$snotify.error('Unable to delete this User..!', 'Delete User', {
+                                        timeout: 2000,
+                                        showProgressBar: false,
+                                        closeOnClick: false,
+                                        pauseOnHover: true
+                                    });
+                                }
+                            });
+
+                        }, bold: false
+                    },
 
                     {
                         text: 'No',

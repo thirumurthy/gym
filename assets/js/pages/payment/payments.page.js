@@ -4,7 +4,7 @@ parasails.registerPage('payments', {
     //  ╩╝╚╝╩ ╩ ╩╩ ╩╩═╝  ╚═╝ ╩ ╩ ╩ ╩ ╚═╝
     data: {
         //…
-        curPayment: { PaidAmount: 0, UserSid: 0 },
+        curPayment: { PaidAmount: 0, UserSid: 0, BalanceAmount:0 },
         formData: { /* … */ },
         // Syncing / loading state
         syncing: false,
@@ -34,6 +34,11 @@ parasails.registerPage('payments', {
                 name: 'BalanceAmount',
                 title: 'Balance Amount',
                 sortField: 'BalanceAmount'
+            },
+            {
+                name: 'DueDate',
+                title: "Due Date",
+                sortField: 'DueDate'
             },
             {
                 name: 'JoinDate',
@@ -160,6 +165,16 @@ parasails.registerPage('payments', {
             var curExpireDate = (this.curPayment.ExpireDate || '');
             var _self = this;
             $(function () {
+
+                $('#DueDate').datepicker({
+                    // date format
+                    format: 'dd/MM/yyyy',
+
+                    // placeholder text
+                    placeholder: 'Enter Due Date',
+                    // default date
+                });
+
                 $('#joindate').datepicker({
                     // date format
                     format: 'dd/MM/yyyy',
@@ -198,6 +213,7 @@ parasails.registerPage('payments', {
             var _self = this;
             _self.curPayment.UserSid = (_self.curPayment.UserSid || 0);
             this.curPayment.JoinDate = $("#joindate").val();
+            this.curPayment.DueDate = $("#DueDate").val();
             this.curPayment.UserId = jutil.getParameterByName("userid") || this.curPayment.UserId;
             this.curPayment.ExpireDate = $("#ExpireDate").val();
             this.curPayment.SType = 1;
@@ -250,6 +266,13 @@ parasails.registerPage('payments', {
         onChangePage(page) {
             this.$refs.vuetable.changePage(page)
         },
+        strToDate(strdate){
+            var parts = strdate.split("/")
+            // Please pay attention to the month (parts[1]); JavaScript counts months from 0:
+            // January - 0, February - 1, etc.
+            var mydate = new Date(parts[2], parts[1] - 1, parts[0]);
+            return mydate;
+        },
         editRow(rowData) {
             this.paymentAddModalVisible = true;
             this.curPayment = rowData;
@@ -258,6 +281,16 @@ parasails.registerPage('payments', {
             setTimeout(() => {
                 // _self.updatePackage();
                 // _self.curPayment.pack = rowData.pack;
+                $('#DueDate').datepicker({
+                    format: 'dd/MM/yyyy',
+                    placeholder: 'Please Enter Due Date',
+                });
+                if(this.curPayment.DueDate){
+                    
+                    $("#DueDate").datepicker('setDate', this.strToDate(this.curPayment.DueDate));
+                }
+                 
+                
                 $("#joindate").on('pick.datepicker', function (event) {
                     console.log('newDate: ' + event.newDate);
                     console.log('oldDate: ' + event.oldDate);
