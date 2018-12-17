@@ -12,7 +12,12 @@
 # Installation
 1.  Download
     https://github.com/thirumurthy/gym/archive/master.zip
-    
+
+
+
+# Import SQL File
+mysql -u username -p gymmanagement < sp.sql
+
 # Documentation
 
 Navigate the project folder and run the command 
