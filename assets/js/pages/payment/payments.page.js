@@ -208,7 +208,9 @@ parasails.registerPage('payments', {
         closePaymentAddModel: function () {
             this.paymentAddModalVisible = false;
         },
-
+        hasUser : function(){
+            return jutil.getParameterByName("userid")>0 ? true : false;
+        },
         handleParsingPaymentSaveForm: function () {
             var _self = this;
             _self.curPayment.UserSid = (_self.curPayment.UserSid || 0);

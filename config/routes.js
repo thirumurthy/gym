@@ -80,6 +80,10 @@ module.exports.routes = {
     'POST /api/v1/files/uploadfile': { action: 'files/uploadfile' },
     'POST /api/v1/admin/processquery': { action: 'admin/process-query' },
 
+// report
+'GET /api/v1/report/get-by-year': { action: 'report/get-by-year' },
+'GET /api/v1/report/get-by-month': { action: 'report/get-by-month' },
+
     //  ╦ ╦╔═╗╔╗ ╦ ╦╔═╗╔═╗╦╔═╔═╗
     //  ║║║║╣ ╠╩╗╠═╣║ ║║ ║╠╩╗╚═╗
     //  ╚╩╝╚═╝╚═╝╩ ╩╚═╝╚═╝╩ ╩╚═╝

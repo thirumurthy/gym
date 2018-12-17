@@ -1,7 +1,54 @@
 <div id="getreport" v-cloak>
 
-  <h1>TODO: Implement this page.</h1>
-  <p>(See also <em>assets\styles\pages\report\getreport.less</em>, <em>assets\js\pages\report\getreport.page.js</em>, and <em>api\controllers\report\view-getreport.js</em>.)</p>
+  <h1 >Reports.</h1>
+  <div>
+    <form>
+      <div class="form-row align-items-center">
+        <div class="col-auto">
+          <label class="sr-only" for="rpttype">Name</label>
+          <p id="rpttype">Report Type:</p>
+        </div>
+        <div class="col-auto">
+          <label class="sr-only" for="inlineFormInput">Name</label>
+          
+          <select class="custom-select"  id="inlineFormInput" v-model="rptObj.rptType">
+            <option selected value="0">Select Report Type</option>
+            <option value="1">Monthly</option>
+            <option value="2">Yearly</option>
+          </select>
 
+        </div>
+        <div class="col-auto">
+          <label class="sr-only" for="branch">Select Branch</label>
+           
+          <select class="custom-select"  id="branch" v-model="rptObj.bid">
+            <option selected value="0">select branch</option>
+            <option  v-for="slgbr of lstbranch" :value="slgbr.bid">{{slgbr.Name}}</option>
+          </select>
+
+        </div>
+        <div class="col-auto" v-show="rptObj.rptType==1">
+          <label class="sr-only" for="rptyear">Choose Month</label>
+          <input type="text" class="form-control" id="rptmonth" placeholder="Choose Year">
+
+        </div>
+        
+        <div class="col-auto">
+          <label class="sr-only" for="rptyear">Choose Year</label>
+          <input type="text" class="form-control" id="rptyear" placeholder="Choose Year">
+
+        </div>
+        <div class="col-auto">
+          <button type="button" class="btn btn-primary mb-2" @click="generateReport">Submit</button>
+        </div>
+      </div>
+    </form>
+
+
+    <iframe :src="pdfPath" v-if="isShowPdf"
+   width="800px" height="600px" id="rptframe"> </iframe>
+
+
+  </div>
 </div>
 <%- /* Expose server-rendered data as window.SAILS_LOCALS :: */ exposeLocalsToBrowser() %>
