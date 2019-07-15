@@ -51,7 +51,7 @@ parasails.registerPage('welcome', {
         bid : 0,
         fields: [{
                 name: 'gymnumber',
-                title: '<span class="orange glyphicon glyphicon-user"></span>Mucle Zone ID',
+                title: '<span class="orange glyphicon glyphicon-user"></span>Gym ID',
                 sortField: 'gymnumber'
             },
             {

@@ -71,17 +71,17 @@ module.exports = {
 
     var docDefinition = {
       info: {
-        title: 'MuscleZone Report',
+        title: 'Gym Report',
         author: 'Thirumurthy',
-        subject: 'MuscleZone Report',
-        keywords: 'MuscleZone Report',
+        subject: 'Gym Report',
+        keywords: 'Gym Report',
       },
       pageSize: 'A4',
       pageMargins: [ 40, 60, 40, 60 ],
-      header: { text:'\n\n\nMuscle Zone - Year Based Report' , alignment: 'center'},
+      header: { text:'\n\n\nGym - Year Based Report' , alignment: 'center'},
       footer: {
         columns: [
-          'Muscle Zone Report',
+          'Gym Report',
           { text: '2018', alignment: 'right' }
         ]
       },
